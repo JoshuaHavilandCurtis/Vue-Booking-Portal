@@ -1,0 +1,69 @@
+.error-dialog {
+	&-container {
+		display:flex;
+		justify-content:center;
+		align-items:flex-start;
+		
+		inset:0 0 0 0;
+		position:fixed;
+		z-index:99999;
+
+		background-color:rgba(0,0,0,0.5);
+
+		@keyframes ErrorDialogContainerPopIn {
+			from { filter:opacity(0); backdrop-filter:contrast(1); }
+			to { filter:opacity(1); backdrop-filter:contrast(0.8); }
+		}
+
+		animation:ErrorDialogContainerPopIn 250ms forwards;
+	}
+
+	display:flex;
+	flex-direction:column;
+	justify-content:center;
+	align-items:center;
+	padding:20px;
+	margin:100px 10px 0;
+
+	background-color:var(--ow-blue);
+
+	text-align:center;
+
+	@keyframes ErrorDialogPopIn {
+		from { transform:scale(0); filter:opacity(0) }
+		to { transform:scale(1); filter:opacity(1) }
+	}
+
+	animation:ErrorDialogPopIn 250ms;
+
+	&--heading {
+		font-size:x-large;
+		font-weight:bold;
+		padding-bottom:0.5rem;
+	}
+
+	&--content {
+		display:flex;
+		flex-direction:column;
+		align-items:center;
+
+		&--default {
+			font-size:medium;
+		}
+
+		&--message {
+			background-color:var(--ow-error);
+			width: 100%;
+			color: var(--ow-blue);
+			padding: 10px;
+			margin-top:1rem;
+			border-radius: 3px;
+			font-weight:bold;
+		}
+		
+	}
+
+	&--close-btn {
+		margin-top:1rem;
+	}
+}

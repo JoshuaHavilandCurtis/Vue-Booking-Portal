@@ -1,0 +1,22 @@
+{
+	"id": 1,
+	"name": "Heart Health",
+	"subspecialties": [
+		{
+			"id": 1,
+			"name": "Radiologist"
+		},
+		{
+			"id": 2,
+			"name": "Brain expert"
+		},
+		{
+			"id": 3,
+			"name": "Heart geezer"
+		},
+		{
+			"id": 4,
+			"name": "Professional hospital person"
+		}
+	]
+}

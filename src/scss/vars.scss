@@ -1,0 +1,31 @@
+:root {
+	//main ow colors
+	--ow-blue: #202b5b;
+	--ow-blue-light: #2d3c80;
+	--ow-blue-dark: #161f45;
+
+	--ow-purple-very-light: #f2d9ea;
+	--ow-purple-light: #e967c2;
+	--ow-purple: #9d377d;
+	--ow-purple-dark: #852f6a;
+	--ow-purple-very-dark: #570f40;
+
+	//custom ow colors
+	--background: var(--ow-blue);
+
+	--ow-error: #f67c86;
+	--ow-error-light: #ffdee0;
+
+	--ow-primary: whitesmoke;
+	--ow-primary-dark: #c8c8c8;
+
+	--ow-primary-opposite: #0A0A0A;
+
+	--ow-disabled: #808080;
+
+	//timetable colors
+	--ow-timetable-invalid: var(--ow-disabled);
+	--ow-timetable-unavailable: #df5964;
+	--ow-timetable-available: #4ee97a;
+	--ow-timetable-available-hover: #a2ffbc;
+}

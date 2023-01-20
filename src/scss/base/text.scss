@@ -1,0 +1,22 @@
+span,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+legend,
+label {
+	color:var(--ow-primary);
+}
+
+a {
+	color:var(--ow-purple-light);
+	text-decoration:none;
+
+	&:hover {
+		color:var(--ow-purple-light);
+		text-decoration:underline;
+	}
+}

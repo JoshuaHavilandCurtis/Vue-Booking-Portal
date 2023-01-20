@@ -1,0 +1,19 @@
+@keyframes FadeIn {
+	from { filter:opacity(0); }
+	to { filter:opacity(1); }
+}
+
+// @keyframes SubtleFadeIn {
+// 	from { filter:opacity(0.5); }
+// 	to { filter:opacity(1); }
+// }
+
+@keyframes ScaleIn {
+	from { transform:scale(0.95); }
+	to { transform:scale(1); }
+}
+
+@keyframes FadeOut {
+	from { filter:opacity(1); }
+	to { filter:opacity(0); }
+}

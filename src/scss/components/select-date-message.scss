@@ -1,0 +1,17 @@
+.select-date-message {
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	gap:1rem;
+
+	animation:FadeIn 1s ease-in-out;
+
+	&--text {
+		font-size:1.75rem;
+		font-weight:bold;
+	}
+
+	&--select {
+		padding:0.5rem;
+	}
+}

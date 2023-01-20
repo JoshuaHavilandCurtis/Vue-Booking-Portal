@@ -1,0 +1,100 @@
+input[type=submit], button, .button {
+	padding:8px 15px;
+	border:0;
+	background-color:var(--ow-purple);
+	color:var(--ow-primary);
+	user-select:none;
+
+	transition:background-color 150ms;
+
+	&:hover {
+		text-decoration:none;
+		background-color:var(--ow-purple-dark);
+		color:var(--ow-primary);
+	}
+}
+
+input[type=submit], button[type=submit], .button {
+	&:focus-visible {
+		outline:0;
+		outline:4px solid var(--ow-purple-very-dark);
+	}
+}
+
+input[type=date],
+input[type=datetime],
+input[type=datetime-local],
+input[type=email],
+input[type=month],
+input[type=number],
+input[type=password],
+input[type=search],
+input[type=tel],
+input[type=text],
+input[type=time],
+input[type=url],
+input[type=week],
+textarea,
+select {
+	color:var(--ow-primary-opposite);
+	background-color:var(--ow-primary);
+	border:none;
+	outline:2px solid transparent;
+	padding:15px;
+
+	transition:background-color 150ms, outline-color 150ms, box-shadow 150ms;
+
+	&.invalid, &:focus.invalid {
+		background-color:var(--ow-error-light);
+		outline-color:var(--ow-error);
+	}
+
+	&:disabled {
+		background-color:var(--ow-primary-dark);
+		color:var(--ow-disabled);
+	}
+
+	&:focus {
+		//outline:none;
+		background-color:var(--ow-purple-very-light);
+		outline-color:var(--ow-purple-very-light);
+	}
+
+	//override autofill background colors - have to use box-shadow hack
+	&:-webkit-autofill,
+	&:-webkit-autofill:hover,
+	&:-webkit-autofill:focus,
+	&:-webkit-autofill:active {
+		box-shadow:0 0 0 50px var(--ow-primary) inset;
+
+		&.invalid, &:focus.invalid {
+			box-shadow:0 0 0 50px var(--ow-error-light) inset;
+		}
+
+		&:focus {
+			box-shadow:0 0 0 50px var(--ow-purple-very-light) inset;
+		}
+	}
+
+}
+
+input[type=checkbox] {
+	min-width:25px;
+    min-height:25px;
+	accent-color:var(--ow-purple);
+
+	&:focus-visible {
+		outline:0;
+		outline:4px solid var(--ow-purple);
+	}
+
+	& + label {
+		transition:color 150ms;
+	}
+
+	&.invalid {
+		& + label {
+			color: var(--ow-error);
+		}
+	}
+}
