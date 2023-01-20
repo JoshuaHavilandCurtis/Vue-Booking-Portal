@@ -1,6 +1,6 @@
 # OneWelbeck booking portal
 
-This template should help get you started developing with Vue 3 in Vite.
+This is the booking portal that is to be used on the main OneWelbeck website. It will allows users to quickly and easily book time slots with consultants!
 
 ## Recommended IDE Setup
 
