@@ -19,7 +19,9 @@ export default {
         }
     },
 	methods: {
-        async getHourlyIntervals() {
+        async getHourlyIntervals(hour, minute) {
+
+            console.log(moment().hour(9).minute(50).format('h:m A')); // This will format the hours
 
             try {
                 const response = await axios.get(apiConfig.getHourlyIntervals);
@@ -27,7 +29,6 @@ export default {
 			    const apiIntervals = response.data;
                 // Get intervals only
                 this.intervals = response.data.intervals;
-                // this.intervals = moment(response.data.intervals).format('hh:mm A');
                 console.log('time object', apiIntervals)
 			    return apiIntervals;
 
@@ -37,6 +38,13 @@ export default {
 				return;
             }
 		},
+        // async renderHourlyIntervals() {
+        //     const intervals = getHourlyIntervals();
+
+        //     for (const time of intervals) {
+        //         moment(response.data.intervals).format('hh:mm A');
+        //     }
+        // }
 	},
 	created() {
 		this.getHourlyIntervals();
