@@ -1,21 +1,16 @@
 <template>
-    <container>
-        <div class="intervals">
-            <ul>
-                <li>
-                    <span class="intervals__time">11:10am</span>
-                    <button>Book Appointment</button>
-                </li>
-            </ul>
-        </div>
-    </container>
+    <li>
+        <span class="intervals__time">{{ time }}</span>
+        <button>Book Appointment</button>
+    </li>
 </template>
 
 <script>
 export default {
+    props: ['time'],
 	data() {
 		return {
-		
+
         }
     },
     mounted() {
