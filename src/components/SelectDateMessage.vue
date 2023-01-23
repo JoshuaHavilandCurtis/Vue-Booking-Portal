@@ -1,6 +1,5 @@
 <template>
-	<div class="container">
-
+	<container>
 		<div class="select-date-message">
 			<span class="select-date-message--text"  v-if="$store.state.request.type !== 'centre'">{{ $store.state.request.item.message }}</span>
 
@@ -10,10 +9,8 @@
 					<option v-for="subspecialty in $store.state.request.item.subspecialties" :key="subspecialty" :value="subspecialty.id">{{ subspecialty.name }}</option>
 				</select>
 			</template>
-
 		</div>
-		
-	</div>
+	</container>
 </template>
 
 <script>

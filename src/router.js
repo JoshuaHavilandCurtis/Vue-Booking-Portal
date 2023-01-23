@@ -4,6 +4,7 @@ import Error from "./views/Error.vue";
 import Testing from "./views/Testing.vue";
 import SelectDate from "./views/SelectDate.vue";
 import InputDetails from "./views/InputDetails.vue";
+import SelectTime from "./views/SelectTime.vue";
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,6 +23,11 @@ const router = createRouter({
 			path: "/:type/:id",
 			name: "request",
 			component: SelectDate
+		},
+		{
+			path: "/time",
+			name: "time",
+			component: SelectTime
 		},
 		{
 			path: '/:pathMatch(.*)*',

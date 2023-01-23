@@ -1,6 +1,5 @@
 <template>
-	<div class="container">
-
+	<container>
 		<div class="timetable">
 			<span class="row justify-content-center">Date range: {{ startDate.format("YYYY-MM-DD") }} to {{ endDate.clone().subtract(1, "milliseconds").format("YYYY-MM-DD") }}</span>
 
@@ -38,8 +37,7 @@
 
 			</div>
 		</div>
-
-	</div>
+	</container>
 </template>
 
 <script>

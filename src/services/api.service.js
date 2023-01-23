@@ -103,7 +103,6 @@ class ApiService {
 			return apiEntries;
 		}
 	}
-
 }
 
 const apiService = new ApiService();

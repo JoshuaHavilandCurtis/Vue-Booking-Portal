@@ -9,6 +9,7 @@ const apiConfig = {
 	/* single */
 
 	getTimetableEntries: domain + "/temp/single/timetable.json",
+	getHourlyIntervals: domain + "/temp/single/hourlyintervals.json",
 
 	//get by ids
 	getConsultantById: domain + "/temp/single/consultant.json",
