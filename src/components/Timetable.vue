@@ -90,6 +90,8 @@ export default {
 			const endDate = startDate.clone().add(5, "days");
 			this.updateTimetable(startDate, endDate);
 		},
+
+
 		async updateTimetable(startDate, endDate) {
 			this.loaded = false;
 
@@ -107,11 +109,13 @@ export default {
 			this.loaded = true;
 			this.$store.commit("markRouteAsLoaded");
 		},
+
+		
 		handleEntryClicked(entry) {
 			if (entry.valid === false || entry.available === false) return;
 
 			this.$store.commit("updateBookingSlot", { date: entry.date });
-			this.$router.push({ path: "/input-details" });
+			this.$router.push({ path: "/time" });
 		},
 
 		/* non mutable methods */

@@ -6,7 +6,8 @@ const store = createStore({
 		request: JSON.parse(sessionStorage.getItem("request")) ?? null,
 		selectedBookingSlot: JSON.parse(sessionStorage.getItem("selectedBookingSlot")) ?? {
 			date: null,
-			consultant: null
+			consultant: null,
+			time: null,
 		},
 		errorDialog: {
 			visible: false,

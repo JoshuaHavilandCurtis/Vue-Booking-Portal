@@ -13,6 +13,7 @@ export default {
 			try {
 				const request = await this.$request.getRequest(this.$route.params);
 				this.$store.commit("setRequest", request);
+				debugger;
 			} catch (e) {
 				this.$store.commit("openErrorDialog", e);
 				console.error(e);

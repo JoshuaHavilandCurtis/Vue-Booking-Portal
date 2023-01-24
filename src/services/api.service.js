@@ -44,8 +44,26 @@ class ApiService {
 		}
 	}
 
+	/* get intervals */
+	async getAvailableIntervalsByRequest(request, date) {
+		switch (request.type) {
+			case "consultant":
+				return await this.#getAvailableIntervalsByRequest.consultant(request.id, date);
+			case "test":
+				return await this.#getAvailableIntervalsByRequest.test(request.id, date);
+			case "treatment":
+				return await this.#getAvailableIntervalsByRequest.treatment(request.id, date);
+			case "condition":
+				return await this.#getAvailableIntervalsByRequest.condition(request.id, date);
+			case "centre":
+				return await this.#getAvailableIntervalsByRequest.subspecialty(request.selectedSubspecialtyId, date);
+			default:
+				return null;
+		}
+	}
 
-	/* private methods */
+
+	/* private methods/properties */
 
 	#getItemById = {
 		async consultant(id) {
@@ -101,6 +119,35 @@ class ApiService {
 			const response = await axios.get(apiConfig.getTimetableEntries);
 			const apiEntries = response.data.entries;
 			return apiEntries;
+		}
+	}
+
+
+	#getAvailableIntervalsByRequest = {
+		async consultant(id, date) {
+			const response = await axios.get(apiConfig.getHourlyIntervals);
+			const apiIntervals = response.data.intervals;
+			return apiIntervals;
+		},
+		async test(id, date) {
+			const response = await axios.get(apiConfig.getHourlyIntervals);
+			const apiIntervals = response.data.intervals;
+			return apiIntervals;
+		},
+		async treatment(id, date) {
+			const response = await axios.get(apiConfig.getHourlyIntervals);
+			const apiIntervals = response.data.intervals;
+			return apiIntervals;
+		},
+		async condition(id, date) {
+			const response = await axios.get(apiConfig.getHourlyIntervals);
+			const apiIntervals = response.data.intervals;
+			return apiIntervals;
+		},
+		async subspecialty(id, date) {
+			const response = await axios.get(apiConfig.getHourlyIntervals);
+			const apiIntervals = response.data.intervals;
+			return apiIntervals;
 		}
 	}
 }

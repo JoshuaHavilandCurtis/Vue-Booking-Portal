@@ -1,7 +1,22 @@
 <template>
     <container>
         <ul class="intervals">
-            <hourly-intervals v-for="int in intervals" :key="int" :time="int"></hourly-intervals>
+            <hourly-intervals v-for="int in intervals" :key="int"></hourly-intervals>
+        </ul>
+
+        <ul>
+            <li>
+                <img src="" alt="">
+                <h1>Dr Ameet Dhar</h1>
+                <p>Consultant Gastroenterologist and Hepatologist</p>
+
+                <ul class="specialist-in">
+                    <li><span>Specialist expertise:</span></li>
+                    <li>Hepatology,</li>
+                    <li>Gastroenterologist,</li>
+                    <li>Liver</li>
+                </ul>
+            </li>
         </ul>
     </container>
 </template>
@@ -18,36 +33,42 @@ export default {
             intervals: []
         }
     },
+    provide() {
+        return {
+            intervals: this.intervals
+        }
+    },
 	methods: {
-        async getHourlyIntervals(hour, minute) {
-
-            console.log(moment().hour(9).minute(50).format('h:m A')); // This will format the hours
+        async setIntervals() {
 
             try {
-                const response = await axios.get(apiConfig.getHourlyIntervals);
-                // Complete Object 
-			    const apiIntervals = response.data;
-                // Get intervals only
-                this.intervals = response.data.intervals;
-                console.log('time object', apiIntervals)
-			    return apiIntervals;
-
+                this.intervals = await this.getHourlyIntervals();
             } catch (e) {
                 this.$store.commit("openErrorDialog", e);
 				console.error(e);
 				return;
             }
-		},
-        // async renderHourlyIntervals() {
-        //     const intervals = getHourlyIntervals();
 
-        //     for (const time of intervals) {
-        //         moment(response.data.intervals).format('hh:mm A');
-        //     }
-        // }
+        },
+
+        async getHourlyIntervals() {
+            const date = this.$store.state.selectedBookingSlot.date;
+            if (date === null) throw new Error("Date not selected!");
+
+            const availableIntervals = await this.$api.getAvailableIntervalsByRequest(this.$store.state.request, date);
+
+            for (const interval of availableIntervals) {
+                tempIntervals.push(moment(interval, "hh:mm"));
+            }
+
+            this.intervals = tempIntervals;
+
+            return apiIntervals;
+		},
 	},
 	created() {
-		this.getHourlyIntervals();
+		this.setIntervals();
+        this.$store.commit("markRouteAsLoaded");
 	},
 	beforeCreate() {
 		this.$store.state.request = null;
