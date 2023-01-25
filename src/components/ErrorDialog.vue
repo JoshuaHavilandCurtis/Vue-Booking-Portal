@@ -21,8 +21,7 @@ export default {
 		closeDialog() {
 			this.$store.commit("closeErrorDialog");
 		}
-	},
-	created() {}
+	}
 }
 </script>
 

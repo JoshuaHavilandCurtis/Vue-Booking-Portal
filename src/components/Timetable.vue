@@ -17,12 +17,12 @@
 			
 					<div class="w-100">
 						<div class="timetable--column-labels">
-							<span class="timetable--column-labels-item" v-for="columnLabel in timetableData.columnLabels">{{ columnLabel.text }}</span>
+							<span class="timetable--column-labels-item" v-for="columnLabel in timetableData.columnLabels" :key="columnLabel">{{ columnLabel.text }}</span>
 						</div>
 				
 						<div class="timetable--data">
-							<div class="timetable--data-column" v-for="column in timetableData.columns">
-								<span class="timetable--data-entry" :key="entry" v-for="entry in column" @click="handleEntryClicked(entry)" :class="{ invalid: entry.valid === false, available: entry.valid === true && entry.available === true }"></span>
+							<div class="timetable--data-column" v-for="column in timetableData.columns" :key="column">
+								<span class="timetable--data-entry" v-for="entry in column" :key="entry" @click="handleEntryClicked(entry)" :class="{ invalid: entry.valid === false, available: entry.valid === true && entry.available === true }"></span>
 							</div>
 
 							<loading-wheel class="fill-container" :class="{ loaded }"></loading-wheel>
@@ -43,7 +43,6 @@
 <script>
 import moment from "moment";
 import "moment-timezone";
-import axios from "axios";
 
 export default {
 	data() {
@@ -68,6 +67,9 @@ export default {
 			},
 			loaded: true
 		}
+	},
+	created() {
+		this.renderCurrentWeek();
 	},
 	methods: {
 
@@ -170,9 +172,6 @@ export default {
 			return timetableData;
 		}
 
-	},
-	created() {
-		this.renderCurrentWeek();
 	}
 }
 

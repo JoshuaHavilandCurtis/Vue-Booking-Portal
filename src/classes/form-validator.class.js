@@ -4,7 +4,7 @@ export default class FormValidator {
 	invalidFields = new Map();
 
 	constructor(form) {
-		if (form == null) throw "Provided form is not valid!";
+		if (form == null) throw new Error("Provided form is not valid!");
 
 		this.form = form;
 		this.getAllFields();
@@ -38,7 +38,7 @@ export default class FormValidator {
 	handleFieldChange(ev) {
 		const fieldElmt = ev.target;
 		const field = this.fields.get(fieldElmt);
-		if (field === undefined) throw "Field is missing from the list of recognised required fields!";
+		if (field === undefined) throw new Error("Field is missing from the list of recognised required fields!");
 
 		this.updateField(fieldElmt, field);
 	}
@@ -106,7 +106,7 @@ export default class FormValidator {
 		if (confirmationAttribute !== null) {
 			const originalFieldElmt = this.form.querySelector(`[name="${confirmationAttribute}"]`);
 			const originalField = this.fields.get(originalFieldElmt);
-			if (originalField === undefined) throw "Unable to find the original field for this confirmation field!";
+			if (originalField === undefined) throw new Error("Unable to find the original field for this confirmation field!");
 
 			if (fieldElmt.value !== originalFieldElmt.value) {
 				fieldElmt.classList.add("invalid");

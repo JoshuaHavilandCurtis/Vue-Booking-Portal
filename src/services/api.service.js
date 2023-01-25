@@ -45,6 +45,7 @@ class ApiService {
 	}
 
 	/* get intervals */
+	
 	async getAvailableIntervalsByRequest(request, date) {
 		switch (request.type) {
 			case "consultant":

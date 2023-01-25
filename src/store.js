@@ -20,6 +20,10 @@ const store = createStore({
 			state.request = payload;
 			sessionStorage.setItem("request", JSON.stringify(state.request));
 		},
+		updateRequest(state, payload) {
+			Object.assign(state.request, payload);
+			sessionStorage.setItem("request", JSON.stringify(state.request));
+		},
 		updateBookingSlot(state, payload) {
 			Object.assign(state.selectedBookingSlot, payload);
 			sessionStorage.setItem("selectedBookingSlot", JSON.stringify(state.selectedBookingSlot));

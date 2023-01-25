@@ -2,11 +2,10 @@
 export default {
 	created() {
         try {
-            throw "Invalid route!";
+            throw new Error("Invalid route!");
         } catch (e) {
             this.$store.commit("openErrorDialog", e);
             console.error(e);
-            return;
         }
     }
 }

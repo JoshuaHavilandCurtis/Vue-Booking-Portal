@@ -4,11 +4,11 @@ class RequestService {
 	constructor() {}
 
 	async getRequest(routeParams) {
-		if (routeParams.type === null || routeParams.id === null) throw "Request parameters are not set!"
+		if (routeParams.type === null || routeParams.id === null) throw new Error("Request parameters are not set!");
 		
 		const request = { type: routeParams.type, id: routeParams.id };
 
-		if (this.validateRequest(request) === false) throw "Request is not valid!";
+		if (this.validateRequest(request) === false) throw new Error("Request is not valid!");
 
 		request.item = await apiService.getItemByRequest(request);
 		if (request.type === "centre") request.selectedSubspecialtyId = request.item.subspecialties[0].id; //first subspecialty
