@@ -11,7 +11,7 @@
 			justify-content:center;
 			align-items:center;
 	
-			background-color:var(--background);
+			background-color:var(--ow-background);
 
 			&.fill-container,
 			&.fullscreen {

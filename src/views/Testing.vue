@@ -11,8 +11,8 @@
 
 <script>
 export default {
-    mounted() {
-		this.$store.commit("markRouteAsLoaded");
+    created() {
+		this.$store.commit("routeLoaded", true);
 	}
 }
 </script>

@@ -3,8 +3,15 @@
 	padding:0;
 }
 
-html {}
+html {
+	display:flex; //todo this is not ideal
+	flex-direction:column;
+}
 
 body {
 	background-color:var(--ow-blue);
+	height:100vh;
+	height:100dvh;
+	width:100vw;
+	width:100dvw;
 }

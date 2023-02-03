@@ -5,14 +5,14 @@ import { RouterLink, RouterView } from "vue-router";
 <template>
 	<router-view></router-view> <!-- This is needed! -->
 	<error-dialog></error-dialog>
-	<loading-wheel class="fullscreen" :class="{ loaded: $store.state.routeLoaded === true }"></loading-wheel>
+	<loading-wheel class="fullscreen" :class="{ loaded: $store.state.routeLoaded }"></loading-wheel>
 </template>
 
 <script>
 export default {
 	watch: {
 		$route (to, from) {
-			this.$store.commit("unloadRoute");
+			this.$store.commit("routeLoaded", false);
 		}
 	}
 }

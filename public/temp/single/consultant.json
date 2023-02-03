@@ -9,5 +9,9 @@
 		"subspecialty1",
 		"subspecialty2"
 	],
-	"message": "Book a time slot with Dr Dwayne Johnson"
+	"message": "Book a time slot with Dr Dwayne Johnson",
+	"availableslots": [
+		"Wed Feb 15 2023 13:00:00 GMT+0000",
+		"Tue Feb 14 2023 10:00:00 GMT+0000"
+	]
 }

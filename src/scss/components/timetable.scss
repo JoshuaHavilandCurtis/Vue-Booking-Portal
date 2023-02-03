@@ -3,83 +3,97 @@ $label_padding: 1rem;
 
 .timetable {
 
-	&--load {
-		&-next, &-previous {
-			
-			&:hover {
+	&__header {
+		display:flex;
+		justify-content:center;
+		align-items:center;
+		gap:1rem;
+
+		animation:FadeIn 1s ease-in-out;
+
+		&__message {
+			font-size:1.75rem;
+			font-weight:bold;
+		}
+
+		&__centre-selector {
+			padding:0.5rem;
+		}
+	}
+
+	&__content {
+		&__load {
+			&-next, &-previous {
+				&:hover {}
 			}
+	
+			&-next {}
+	
+			&-previous {}
 		}
 
-		&-next {
-		}
-
-		&-previous {
-		}
-	}
-
-	&--row-labels {
-		display:flex;
-		flex-direction:column;
-		padding:0 $label_padding;
-		justify-content:flex-end;
-
-		&-item {
-			display:flex;
-			align-items:center;
-			justify-content: end;
-			height:$entry_height;
-			color: white;
-		}
-	}
-
-	&--column-labels {
-		display:flex;
-		flex-direction:row;
-		padding:$label_padding 0;
-
-		&-item {
-			display:flex;
-			align-items:center;
-			justify-content:center;
-			flex:1;
-			color: white;
-		}
-	}
-
-	&--data {
-		display:flex;
-		flex-direction:row;
-		background-color:transparent;
-
-		position:relative;
-
-		&-column {
+		&__row-labels {
 			display:flex;
 			flex-direction:column;
-			flex:1;
+			padding:0 $label_padding;
+			justify-content:flex-end;
+	
+			&__item {
+				display:flex;
+				align-items:center;
+				justify-content: end;
+				height:$entry_height;
+				color: white;
+			}
 		}
 	
-		&-entry {
-			height:$entry_height;
-			background-color:var(--ow-timetable-unavailable);
-			border:4px solid var(--background);
-			border-radius:6px;
-
-			animation:ScaleIn 0.6s ease-in-out;
-
-			&.invalid {
-				background-color:var(--ow-timetable-invalid);
+		&__column-labels {
+			display:flex;
+			flex-direction:row;
+			padding:$label_padding 0;
+	
+			&__item {
+				display:flex;
+				align-items:center;
+				justify-content:center;
+				flex:1;
+				color: white;
 			}
+		}
 
-			&.available {
-				background-color:var(--ow-timetable-available);
-				
-				transition:background-color 75ms, border 75ms;
+		&__data {
+			display:flex;
+			flex-direction:row;
+			background-color:transparent;
+	
+			&__column {
+				display:flex;
+				flex-direction:column;
+				flex:1;
 
-				&:hover {
-					background-color:var(--ow-timetable-available-hover);
-					cursor:pointer;
-					border: 1px solid var(--background);
+				&__entry {
+					height:$entry_height;
+					background-color:var(--ow-timetable-unavailable);
+					border:4px solid var(--ow-background);
+					border-radius:6px;
+		
+					animation:ScaleIn 0.6s ease-in-out;
+		
+					&.invalid {
+						background-color:var(--ow-timetable-invalid);
+					}
+		
+					&.available {
+						background-color:var(--ow-timetable-available);
+						
+						transition:background-color 75ms, border 75ms;
+		
+						&:hover {
+							background-color:var(--ow-timetable-available-hover);
+							cursor:pointer;
+							border: 1px solid var(--ow-background);
+						}
+					}
 				}
 			}
 		}

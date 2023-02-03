@@ -8,7 +8,7 @@ class RequestService {
 		
 		const request = { type: routeParams.type, id: routeParams.id };
 
-		if (this.validateRequest(request) === false) throw new Error("Request is not valid!");
+		if (! this.validateRequest(request)) throw new Error("Request is not valid!");
 
 		request.item = await apiService.getItemByRequest(request);
 		if (request.type === "centre") request.selectedSubspecialtyId = request.item.subspecialties[0].id; //first subspecialty

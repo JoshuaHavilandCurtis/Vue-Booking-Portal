@@ -1,26 +1,7 @@
 <template>
-    <div class="select-date fadein my-3" v-if="$store.state.request !== null">
+    <div class="select-time fadein my-3" v-if="$store.state.request !== null">
 
-        <container>
-            <ul class="intervals">
-                <hourly-intervals v-for="interval in intervals" :key="interval" :interval="interval"></hourly-intervals>
-            </ul>
-
-            <ul>
-                <li>
-                    <img src="" alt="">
-                    <h1>Dr Ameet Dhar</h1>
-                    <p>Consultant Gastroenterologist and Hepatologist</p>
-
-                    <ul class="specialist-in">
-                        <li><span>Specialist expertise:</span></li>
-                        <li>Hepatology,</li>
-                        <li>Gastroenterologist,</li>
-                        <li>Liver</li>
-                    </ul>
-                </li>
-            </ul>
-        </container>
+        <consultant-selector :consultants="consultants"></consultant-selector>
 
     </div>
 </template>
@@ -32,15 +13,14 @@ import "moment-timezone";
 export default {
     data() {
         return {
+            consultants: [],
             intervals: []
         }
     },
-	created() {
-        //check that we have a valid request object still
-        this.checkRequest();
-
-        //get the available intervals from the api and set them here
-		this.setIntervals();
+	async created() {
+        this.checkRequest(); //check that we have a valid request object still
+		await this.setIntervals(); //get the available intervals from the api and set them here
+        this.$store.commit("routeLoaded", true);
 	},
 	methods: {
 
@@ -49,10 +29,10 @@ export default {
         checkRequest() {
 			try {
 				if (this.$store.state.request === null) throw new Error("Request is not set!");
-				if (this.$request.validateRequest(this.$store.state.request) === false) throw new Error("Request is not valid!");
+				if (! this.$request.validateRequest(this.$store.state.request)) throw new Error("Request is not valid!");
 			} catch (e) {
 				this.$store.commit("openErrorDialog", e);
-				console.error(e);
+				throw e;
 			}
 		},
 
@@ -61,11 +41,8 @@ export default {
                 this.intervals = await this.createIntervals();
             } catch (e) {
                 this.$store.commit("openErrorDialog", e);
-				console.error(e);
-				return;
+				throw e;
             }
-
-            this.$store.commit("markRouteAsLoaded");
         },
 
         /* non mutable methods */

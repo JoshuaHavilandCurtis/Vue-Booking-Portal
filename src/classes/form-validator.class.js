@@ -27,7 +27,7 @@ export default class FormValidator {
 	listenToFieldChanges() {
 		for (const [fieldElmt, field] of this.fields) {
 			//does the field already have an event listener? --> if not, add it
-			if (fieldElmt.hasAttribute("data-listening") === true) continue;
+			if (fieldElmt.hasAttribute("data-listening")) continue;
 
 			fieldElmt.addEventListener("input", this.handleFieldChange.bind(this));
 			fieldElmt.setAttribute("data-listening", "");
@@ -54,9 +54,9 @@ export default class FormValidator {
 	updateInvalidFields(fieldElmt, field) {
 		const existingInvalidField = this.invalidFields.get(fieldElmt);
 
-		if (field.valid === false && existingInvalidField === undefined) {
+		if (! field.valid && existingInvalidField === undefined) {
 			this.invalidFields.set(fieldElmt, field);
-		} else if (field.valid === true && existingInvalidField !== undefined) {
+		} else if (field.valid && existingInvalidField !== undefined) {
 			this.invalidFields.delete(fieldElmt);
 		}
 	}
@@ -64,7 +64,7 @@ export default class FormValidator {
 
 	getAllFields() {
 		//get all of the required fields on the form
-		const fieldElmts = Array.from(this.form.querySelectorAll("*")).filter(fieldElmt => fieldElmt.hasAttribute("data-required") === true && fieldElmt.hasAttribute("disabled") === false);
+		const fieldElmts = Array.from(this.form.querySelectorAll("*")).filter(fieldElmt => fieldElmt.hasAttribute("data-required") && ! fieldElmt.hasAttribute("disabled"));
 
 		for (const fieldElmt of fieldElmts) {
 			this.fields.set(fieldElmt, {
@@ -83,13 +83,16 @@ export default class FormValidator {
 		//if any fields are confirmation fields of our current element --> check to see if those fields are valid
 		const confirmationFieldElmts = this.form.querySelectorAll(`input[data-confirmation="${fieldElmt.name}"]`);
 		for (const confirmationFieldElmt of confirmationFieldElmts) {
+			const confirmationField = this.fields.get(confirmationFieldElmt);
+			if (confirmationField === null) continue;
+
 			this.checkField(confirmationFieldElmt);
 		}
 
 		//if this field is empty
-		if (fieldElmt.hasAttribute("data-allow-empty") === false) {
+		if (! fieldElmt.hasAttribute("data-allow-empty")) {
 			if (fieldElmt.type === "checkbox") {
-				if (fieldElmt.checked === false) {
+				if (! fieldElmt.checked) {
 					fieldElmt.classList.add("invalid");
 					field.errors.push(`${field.displayName} must be accepted!`);
 					return field;

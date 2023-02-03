@@ -64,7 +64,7 @@
 	
 				<div class="row mb-3">
 					<div class="col-12 d-flex justify-content-center position-relative">
-						<button type="submit" class="user-form--submit" v-if="submitted === false">Submit</button>
+						<button type="submit" class="user-form--submit" v-if="! submitted">Submit</button>
 						<loading-wheel v-else></loading-wheel>
 					</div>
 				</div>
@@ -91,22 +91,21 @@ export default {
 		}
 	},
 	created() {
-        //check that we have a valid request object still
-        this.checkRequest();
+        this.checkRequest(); //check that we have a valid request object still
+		this.$store.commit("routeLoaded", true);
 	},
 	mounted() {
 		this.userFormValidator = new FormValidator(this.$refs.form);
-		this.$store.commit("markRouteAsLoaded");
 	},
 	methods: {
 
 		checkRequest() {
 			try {
 				if (this.$store.state.request === null) throw new Error("Request is not set!");
-				if (this.$request.validateRequest(this.$store.state.request) === false) throw new Error("Request is not valid!");
+				if (! this.$request.validateRequest(this.$store.state.request)) throw new Error("Request is not valid!");
 			} catch (e) {
-				this.$store.commit("openErrorDialog", e);
-				console.error(e);
+                this.$store.commit("openErrorDialog", e);
+				throw e;
 			}
 		},
 

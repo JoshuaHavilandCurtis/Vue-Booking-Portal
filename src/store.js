@@ -37,12 +37,9 @@ const store = createStore({
 			state.errorDialog.visible = false;
 			state.errorDialog.message = null;
 		},
-		markRouteAsLoaded(state) {
-			state.routeLoaded = true;
+		routeLoaded(state, payload) {
+			state.routeLoaded = payload;
 		},
-		unloadRoute(state) {
-			state.routeLoaded = false;
-		}
 	}
 });
 
