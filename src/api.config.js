@@ -11,6 +11,8 @@ const apiConfig = {
 	getTimetableEntries: domain + "/temp/single/timetable.json",
 	getHourlyIntervals: domain + "/temp/single/hourlyintervals.json",
 
+	postTest: "https://api-test.welbeckhealth.com/api/app/PostAPIAvailabilityRequest",
+
 	//get by ids
 	getConsultantById: domain + "/temp/single/consultant.json",
 	getTestById: domain + "/temp/single/test.json",
