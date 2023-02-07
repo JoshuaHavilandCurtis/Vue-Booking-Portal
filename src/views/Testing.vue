@@ -1,5 +1,6 @@
 <template>
     <div class="home">
+        <a class="button" href="/josh">select by josh</a>
         <a class="button" href="/consultant/1">select by consultant</a>
         <a class="button" href="/test/1">select by test</a>
         <a class="button" href="/treatment/1">select by treatment</a>
