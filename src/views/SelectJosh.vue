@@ -58,6 +58,19 @@ export default {
                 // Send week commencing and servicsrequested id 
             };
 
+
+            /* 
+
+            We think the username, user-type and messageID are optional *********************************
+
+            */
+
+
+            //get item from james' Umbraco api with link data
+            
+            //call OW api with link data
+
+
 			try {
 				const request = await axios.post("https://cors-anywhere.herokuapp.com/" + apiConfig.postTest, data, {
                     headers: {
