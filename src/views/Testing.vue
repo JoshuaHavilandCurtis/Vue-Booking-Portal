@@ -10,11 +10,6 @@
 </template>
 
 <script>
-export default {
-    created() {
-		this.$store.commit("routeLoaded", true);
-	}
-}
 </script>
 
 <style lang="scss">

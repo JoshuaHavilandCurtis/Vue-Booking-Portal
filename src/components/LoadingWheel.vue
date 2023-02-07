@@ -1,7 +1,7 @@
 <template>
-	<div class="loader-container">
+	<section class="loader-container">
 		<span class="loader"></span>
-	</div>
+	</section>
 </template>
 
 <style lang="scss">
@@ -13,23 +13,12 @@
 	
 			background-color:var(--ow-background);
 
-			&.fill-container,
-			&.fullscreen {
+			&.fill-container {
 				position:absolute;
 				inset:50% auto auto 50%;
 				transform:translate(-50%, -50%);
-			}
-
-			&.fill-container {
 				min-width:100%;
 				min-height:100%;
-			}
-
-			&.fullscreen {
-				z-index:999;
-				position:fixed;
-				min-width:100vh;
-				min-height:100vh;
 			}
 	
 			&.loaded {

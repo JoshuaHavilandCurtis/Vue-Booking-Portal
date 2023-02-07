@@ -1,5 +1,5 @@
 <template>
-	<div class="error-dialog-container" v-show="$store.state.errorDialog.visible">
+	<section class="error-dialog-container" v-show="$store.state.errorDialog.visible">
 		<div class="error-dialog">
 			<span class="error-dialog--heading">An error has occured!</span>
 			<div class="error-dialog--content">
@@ -9,7 +9,7 @@
 			</div>
 			<button class="error-dialog--close-btn" @click="closeDialog">Close</button>
 		</div>
-	</div>
+	</section>
 </template>
 
 <script>

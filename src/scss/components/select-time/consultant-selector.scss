@@ -1,0 +1,26 @@
+.consultant-selector {
+	&__list {
+
+	}
+
+	&__consultant {
+		display:flex;
+		flex-direction:column;
+		gap:1rem;
+
+		background-color:var(--ow-purple);
+
+		&__image {
+			width:30%;
+			max-width:30%;
+		}
+
+		&__subspecialties {
+			padding-left:unset;
+		}
+
+		&__available-slots {
+			padding-left:unset;
+		}
+	}
+}

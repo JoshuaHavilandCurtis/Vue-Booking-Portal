@@ -10,18 +10,12 @@ class ApiService {
 
 	async getItemByRequest(request) {
 		switch (request.type) {
-			case "consultant":
-				return await this.#getItemById.consultant(request.id);
-			case "test":
-				return await this.#getItemById.test(request.id);
-			case "treatment":
-				return await this.#getItemById.treatment(request.id);
-			case "condition":
-				return await this.#getItemById.condition(request.id);
-			case "centre":
-				return await this.#getItemById.centre(request.id);
-			default:
-				return null;
+			case "consultant": return await this.#getItemById.consultant(request.id);
+			case "test": return await this.#getItemById.test(request.id);
+			case "treatment": return await this.#getItemById.treatment(request.id);
+			case "condition": return await this.#getItemById.condition(request.id);
+			case "centre": return await this.#getItemById.centre(request.id);
+			default: return null;
 		}
 	}
 
@@ -29,37 +23,37 @@ class ApiService {
 
 	async getAvailableEntriesByRequest(request, startDate, endDate) {
 		switch (request.type) {
-			case "consultant":
-				return await this.#getAvailableEntriesByRequest.consultant(request.id, startDate, endDate);
-			case "test":
-				return await this.#getAvailableEntriesByRequest.test(request.id, startDate, endDate);
-			case "treatment":
-				return await this.#getAvailableEntriesByRequest.treatment(request.id, startDate, endDate);
-			case "condition":
-				return await this.#getAvailableEntriesByRequest.condition(request.id, startDate, endDate);
-			case "centre":
-				return await this.#getAvailableEntriesByRequest.subspecialty(request.selectedSubspecialtyId, startDate, endDate);
-			default:
-				return null;
+			case "consultant": return await this.#getAvailableEntriesByRequest.consultant(request.id, startDate, endDate);
+			case "test": return await this.#getAvailableEntriesByRequest.test(request.id, startDate, endDate);
+			case "treatment": return await this.#getAvailableEntriesByRequest.treatment(request.id, startDate, endDate);
+			case "condition": return await this.#getAvailableEntriesByRequest.condition(request.id, startDate, endDate);
+			case "centre": return await this.#getAvailableEntriesByRequest.subspecialty(request.selectedSubspecialtyId, startDate, endDate);
+			default: return null;
 		}
 	}
 
 	/* get intervals */
 	
-	async getAvailableIntervalsByRequest(request, date) {
+	async getAvailableSlotsByRequest(request, date) {
 		switch (request.type) {
-			case "consultant":
-				return await this.#getAvailableIntervalsByRequest.consultant(request.id, date);
-			case "test":
-				return await this.#getAvailableIntervalsByRequest.test(request.id, date);
-			case "treatment":
-				return await this.#getAvailableIntervalsByRequest.treatment(request.id, date);
-			case "condition":
-				return await this.#getAvailableIntervalsByRequest.condition(request.id, date);
-			case "centre":
-				return await this.#getAvailableIntervalsByRequest.subspecialty(request.selectedSubspecialtyId, date);
-			default:
-				return null;
+			case "consultant": return await this.#getAvailableSlotsByRequest.consultant(request.id, date);
+			case "test": return await this.#getAvailableSlotsByRequest.test(request.id, date);
+			case "treatment": return await this.#getAvailableSlotsByRequest.treatment(request.id, date);
+			case "condition": return await this.#getAvailableSlotsByRequest.condition(request.id, date);
+			case "centre": return await this.#getAvailableSlotsByRequest.subspecialty(request.selectedSubspecialtyId, date);
+			default: return null;
+		}
+	}
+
+	/* get consultants */
+	async getAvailableConsultantsByRequest(request, date) {
+		switch (request.type) {
+			case "consultant": return await this.#getAvailableConsultantsByRequest.consultant(request.id, date);
+			case "test": return await this.#getAvailableConsultantsByRequest.test(request.id, date);
+			case "treatment": return await this.#getAvailableConsultantsByRequest.treatment(request.id, date);
+			case "condition": return await this.#getAvailableConsultantsByRequest.condition(request.id, date);
+			case "centre": return await this.#getAvailableConsultantsByRequest.subspecialty(request.selectedSubspecialtyId, date);
+			default: return null;
 		}
 	}
 
@@ -69,28 +63,23 @@ class ApiService {
 	#getItemById = {
 		async consultant(id) {
 			const response = await axios.get(apiConfig.getConsultantById);
-			const consultant = response.data;
-			return consultant;
+			return response.data;
 		},
 		async test(id) {
 			const response = await axios.get(apiConfig.getTestById);
-			const test = response.data;
-			return test;
+			return response.data;
 		},
 		async treatment(id) {
 			const response = await axios.get(apiConfig.getTreatmentById);
-			const treatment = response.data;
-			return treatment;
+			return response.data;
 		},
 		async condition(id) {
 			const response = await axios.get(apiConfig.getConditionById);
-			const condition = response.data;
-			return condition;
+			return response.data;
 		},
 		async centre(id) {
 			const response = await axios.get(apiConfig.getCentreById);
-			const center = response.data;
-			return center;
+			return response.data;
 		}
 	}
 
@@ -98,57 +87,70 @@ class ApiService {
 	#getAvailableEntriesByRequest = {
 		async consultant(id, startDate, endDate) {
 			const response = await axios.get(apiConfig.getTimetableEntries);
-			const apiEntries = response.data.entries;
-			return apiEntries;
+			return response.data;
 		},
 		async test(id, startDate, endDate) {
 			const response = await axios.get(apiConfig.getTimetableEntries);
-			const apiEntries = response.data.entries;
-			return apiEntries;
+			return response.data;
 		},
 		async treatment(id, startDate, endDate) {
 			const response = await axios.get(apiConfig.getTimetableEntries);
-			const apiEntries = response.data.entries;
-			return apiEntries;
+			return response.data;
 		},
 		async condition(id, startDate, endDate) {
 			const response = await axios.get(apiConfig.getTimetableEntries);
-			const apiEntries = response.data.entries;
-			return apiEntries;
+			return response.data;
 		},
 		async subspecialty(id, startDate, endDate) {
 			const response = await axios.get(apiConfig.getTimetableEntries);
-			const apiEntries = response.data.entries;
-			return apiEntries;
+			return response.data;
 		}
 	}
 
 
-	#getAvailableIntervalsByRequest = {
+	#getAvailableSlotsByRequest = {
 		async consultant(id, date) {
-			const response = await axios.get(apiConfig.getHourlyIntervals);
-			const apiIntervals = response.data.intervals;
-			return apiIntervals;
+			const response = await axios.get(apiConfig.getAvailableSlots);
+			return response.data;
 		},
 		async test(id, date) {
-			const response = await axios.get(apiConfig.getHourlyIntervals);
-			const apiIntervals = response.data.intervals;
-			return apiIntervals;
+			const response = await axios.get(apiConfig.getAvailableSlots);
+			return response.data;
 		},
 		async treatment(id, date) {
-			const response = await axios.get(apiConfig.getHourlyIntervals);
-			const apiIntervals = response.data.intervals;
-			return apiIntervals;
+			const response = await axios.get(apiConfig.getAvailableSlots);
+			return response.data;
 		},
 		async condition(id, date) {
-			const response = await axios.get(apiConfig.getHourlyIntervals);
-			const apiIntervals = response.data.intervals;
-			return apiIntervals;
+			const response = await axios.get(apiConfig.getAvailableSlots);
+			return response.data;
 		},
 		async subspecialty(id, date) {
-			const response = await axios.get(apiConfig.getHourlyIntervals);
-			const apiIntervals = response.data.intervals;
-			return apiIntervals;
+			const response = await axios.get(apiConfig.getAvailableSlots);
+			return response.data;
+		}
+	}
+
+	#getAvailableConsultantsByRequest = {
+		async consultant(id, date) {
+			const response = await axios.get(apiConfig.getAvailableConsultants);
+			return response.data;
+		},
+		async test(id, date) {
+			const response = await axios.get(apiConfig.getAvailableConsultants);
+			return response.data;
+		},
+		async treatment(id, date) {
+			const response = await axios.get(apiConfig.getAvailableConsultants);
+			return response.data;
+		},
+		async condition(id, date) {
+			const response = await axios.get(apiConfig.getAvailableConsultants);
+			return response.data;
+		},
+		async subspecialty(id, date) {
+			const response = await axios.get(apiConfig.getAvailableConsultants);
+			return response.data;
 		}
 	}
 }

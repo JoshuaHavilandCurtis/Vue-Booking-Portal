@@ -7,7 +7,9 @@ h4,
 h5,
 h6,
 legend,
-label {
+label,
+li,
+div {
 	color:var(--ow-primary);
 }
 
@@ -19,4 +21,8 @@ a {
 		color:var(--ow-purple-light);
 		text-decoration:underline;
 	}
+}
+
+ul, ol, menu {
+	list-style: none;
 }

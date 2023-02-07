@@ -1,8 +1,8 @@
 <template>
 	<div class="fadein my-3" v-if="$store.state.request !== null">
 		
-		<container>
-			<form class="user-form col-12 col-md-8 mx-auto" ref="form" @submit="formSubmitted" novalidate>
+		<container class="user-form">
+			<form class="col-12 col-md-8 mx-auto" ref="form" @submit="formSubmitted" novalidate>
 				<fieldset>
 					<legend>User details form [consultant name]</legend>
 	
@@ -91,23 +91,24 @@ export default {
 		}
 	},
 	created() {
-        this.checkRequest(); //check that we have a valid request object still
-		this.$store.commit("routeLoaded", true);
+        this.checkRequestAndBooking(); //check that we have a valid request and booking object still
 	},
 	mounted() {
 		this.userFormValidator = new FormValidator(this.$refs.form);
 	},
 	methods: {
 
-		checkRequest() {
-			try {
-				if (this.$store.state.request === null) throw new Error("Request is not set!");
-				if (! this.$request.validateRequest(this.$store.state.request)) throw new Error("Request is not valid!");
-			} catch (e) {
-                this.$store.commit("openErrorDialog", e);
+        checkRequestAndBooking() {
+            try {
+                if (this.$store.state.request === null) throw new Error("Request is not set!");
+                if (! this.$request.validateRequest(this.$store.state.request)) throw new Error("Request is not valid!");
+                if (this.$store.state.booking?.date === null) throw new Error("Date is not set!");
+				if (this.$store.state.booking?.consultant === null) throw new Error("Time is not set!"); //TODO -- AND IF THE REQUEST WAS OF THE 'SLOT-SELECTOR TYPE'
+            } catch (e) {
+				this.$store.commit("openErrorDialog", e);
 				throw e;
-			}
-		},
+            }
+        },
 
 		formSubmitted(ev) {
             ev.preventDefault();

@@ -20,7 +20,9 @@ import Container from "./components/ui/Container.vue";
 
 //general
 import Timetable from "./components/select-date/Timetable.vue";
+import SelectDateHeader from "./components/select-date/SelectDateHeader.vue";
 import ConsultantSelector from "./components/select-time/ConsultantSelector.vue";
+import SlotSelector from "./components/select-time/SlotSelector.vue";
 import ErrorDialog from "./components/ErrorDialog.vue";
 import LoadingWheel from "./components/LoadingWheel.vue";
 
@@ -33,9 +35,11 @@ app.config.globalProperties.$request = requestService;
 app.component("container", Container);
 
 app.component("timetable", Timetable);
+app.component("select-date-header", SelectDateHeader);
 app.component("error-dialog", ErrorDialog);
 app.component("loading-wheel", LoadingWheel);
 app.component("consultant-selector", ConsultantSelector);
+app.component("slot-selector", SlotSelector);
 
 app.use(store);
 app.use(router);

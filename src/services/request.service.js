@@ -18,18 +18,12 @@ class RequestService {
 
 	validateRequest(request) {
 		switch (request.type) {
-		case "consultant":
-			return true;
-		case "test":
-			return true;
-		case "treatment":
-			return true;
-		case "condition":
-			return true;
-		case "centre":
-			return true;
-		default:
-			return false;
+		case "consultant": return true;
+		case "test": return true;
+		case "treatment": return true;
+		case "condition": return true;
+		case "centre": return true;
+		default: return false;
 		}
 	}
 

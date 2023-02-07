@@ -3,7 +3,7 @@
 	"title": "Dr",
 	"firstname": "Dwayne",
 	"lastname": "Johnson",
-	"image": "https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg",
+	"image": "/img/avatar.jpg",
 	"specialty": "Lung Health",
 	"subspecialties": [
 		"subspecialty1",
@@ -11,7 +11,11 @@
 	],
 	"message": "Book a time slot with Dr Dwayne Johnson",
 	"availableslots": [
-		"Wed Feb 15 2023 13:00:00 GMT+0000",
-		"Tue Feb 14 2023 10:00:00 GMT+0000"
+		"09:00",
+		"09:10",
+		"09:20",
+		"09:30",
+		"09:40",
+		"09:50"
 	]
 }

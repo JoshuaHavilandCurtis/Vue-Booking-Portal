@@ -4,11 +4,19 @@
 		"title": "Dr",
 		"firstname": "Jeff",
 		"lastname": "Jefferson",
-		"image": "https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg",
+		"image": "/img/avatar.jpg",
 		"specialty": "Endocrinology",
 		"subspecialties": [
 			"subspecialty1",
 			"subspecialty2"
+		],
+		"availableslots": [
+			"09:00",
+			"09:10",
+			"09:20",
+			"09:30",
+			"09:40",
+			"09:50"
 		]
 	},
 	{
@@ -16,11 +24,19 @@
 		"title": "Dr",
 		"firstname": "Bill",
 		"lastname": "Johnson",
-		"image": "https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg",
+		"image": "/img/avatar.jpg",
 		"specialty": "ENT",
 		"subspecialties": [
 			"subspecialty1",
 			"subspecialty2"
+		],
+		"availableslots": [
+			"09:00",
+			"09:10",
+			"09:20",
+			"09:30",
+			"09:40",
+			"09:50"
 		]
 	},
 	{
@@ -28,11 +44,19 @@
 		"title": "Dr",
 		"firstname": "Davey",
 		"lastname": "Daver",
-		"image": "https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg",
+		"image": "/img/avatar.jpg",
 		"specialty": "Heart Health",
 		"subspecialties": [
 			"subspecialty1",
 			"subspecialty2"
+		],
+		"availableslots": [
+			"09:00",
+			"09:10",
+			"09:20",
+			"09:30",
+			"09:40",
+			"09:50"
 		]
 	},
 	{
@@ -40,11 +64,19 @@
 		"title": "Dr",
 		"firstname": "Jackson",
 		"lastname": "Stevenson",
-		"image": "https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg",
+		"image": "/img/avatar.jpg",
 		"specialty": "Cardiology",
 		"subspecialties": [
 			"subspecialty1",
 			"subspecialty2"
+		],
+		"availableslots": [
+			"09:00",
+			"09:10",
+			"09:20",
+			"09:30",
+			"09:40",
+			"09:50"
 		]
 	},
 	{
@@ -52,11 +84,19 @@
 		"title": "Dr",
 		"firstname": "Dwayne",
 		"lastname": "Johnson",
-		"image": "https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg",
+		"image": "/img/avatar.jpg",
 		"specialty": "Lung Health",
 		"subspecialties": [
 			"subspecialty1",
 			"subspecialty2"
+		],
+		"availableslots": [
+			"09:00",
+			"09:10",
+			"09:20",
+			"09:30",
+			"09:40",
+			"09:50"
 		]
 	}
 ]
