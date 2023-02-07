@@ -59,8 +59,10 @@ export default {
             };
 
 			try {
-				const request = await axios.post(apiConfig.postTest, data, {
-                    headers: {},
+				const request = await axios.post("https://cors-anywhere.herokuapp.com/" + apiConfig.postTest, data, {
+                    headers: {
+                        OneWelbeckAuthorizationHeader: "Oq/2+ZraczGRZbcwyeKhi+Se5G27/tkB"
+                    },
                 });
 				const josh = response.data;
                 console.log('api data', josh)
