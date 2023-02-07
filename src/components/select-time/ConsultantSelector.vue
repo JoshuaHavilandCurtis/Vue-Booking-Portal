@@ -11,7 +11,7 @@
 							<h2 class="consultant-selector__consultant__name">{{ consultant.title }} {{ consultant.firstname }} {{ consultant.lastname }}</h2>
 							<h4 class="consultant-selector__consultant__specialty">{{ consultant.specialty }}</h4>
 							<ul class="consultant-selector__consultant__subspecialties" v-if="consultant.subspecialties.length > 0">
-								<li v-for="subspecialty in consultant.subspecialties">{{ subspecialty }}</li>
+								<li v-for="subspecialty in consultant.subspecialties" :key="subspecialty">{{ subspecialty }}</li>
 							</ul>
 						</div>		
 					</div>

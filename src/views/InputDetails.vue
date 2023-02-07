@@ -103,7 +103,7 @@ export default {
                 if (this.$store.state.request === null) throw new Error("Request is not set!");
                 if (! this.$request.validateRequest(this.$store.state.request)) throw new Error("Request is not valid!");
                 if (this.$store.state.booking?.date === null) throw new Error("Date is not set!");
-				if (this.$store.state.booking?.consultant === null) throw new Error("Time is not set!"); //TODO -- AND IF THE REQUEST WAS OF THE 'SLOT-SELECTOR TYPE'
+				if (this.$store.state.booking?.time === null) throw new Error("Time is not set!");
             } catch (e) {
 				this.$store.commit("openErrorDialog", e);
 				throw e;
