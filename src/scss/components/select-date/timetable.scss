@@ -1,4 +1,4 @@
-$entry_height: 60px;
+$slot_height: 4rem;
 $label_padding: 1rem;
 
 .timetable {
@@ -8,14 +8,15 @@ $label_padding: 1rem;
 	&__row-labels {
 		display:flex;
 		flex-direction:column;
-		padding:0 $label_padding;
+		padding-right:$label_padding;
 		justify-content:flex-end;
 
 		&__item {
 			display:flex;
 			align-items:center;
 			justify-content: end;
-			height:$entry_height;
+			word-break:keep-all;
+			height:$slot_height;
 			color: white;
 		}
 	}
@@ -48,8 +49,8 @@ $label_padding: 1rem;
 			flex-direction:column;
 			flex:1;
 
-			&__entry {
-				height:$entry_height;
+			&__slot {
+				height:$slot_height;
 				background-color:var(--ow-timetable-unavailable);
 				border:4px solid var(--ow-background);
 				border-radius:6px;

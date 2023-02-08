@@ -20,14 +20,14 @@
     }
 
     textarea {
-        height: 250px;
-        max-height: 450px;
+        height: 15rem;
+        max-height: 30rem;
     }
 
     &--row {
         display: flex;
         flex-direction: row;
-        gap: 20px;
+        gap: 1.5rem;
         align-items:center;
     }
 

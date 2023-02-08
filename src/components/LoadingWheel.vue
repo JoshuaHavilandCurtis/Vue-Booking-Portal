@@ -28,8 +28,8 @@
 			}
 		}
 
-		width: 48px;
-		height: 48px;
+		width: 3rem;
+		height: 3rem;
 		border: 5px solid #FFF;
 		border-bottom-color: transparent;
 		border-radius: 50%;

@@ -1,17 +1,19 @@
-export default class FormValidator {
-	form = null;
-	fields = new Map();
-	invalidFields = new Map();
+interface Field {
+	displayName: string,
+	valid: boolean,
+	errors: string[]
+}
 
-	constructor(form) {
-		if (form == null) throw new Error("Provided form is not valid!");
+export default class {
+	fields: Map<HTMLInputElement, Field> = new Map();
+	invalidFields: Map<HTMLInputElement, Field> = new Map();
 
-		this.form = form;
-		this.getAllFields();
-	}
+	constructor(
+		public form: HTMLFormElement
+	) {}
 
 
-	getDisplayName(elmt) {
+	private getDisplayName(elmt: HTMLInputElement) {
 		return elmt.getAttribute("data-display-name") ?? this.form.querySelector(`label[for="${elmt.id}"]`)?.textContent?.replace(":","") ?? elmt.name.charAt(0).toUpperCase()+elmt.name.slice(1).replace("-", " ");
 	}
 
@@ -29,29 +31,20 @@ export default class FormValidator {
 			//does the field already have an event listener? --> if not, add it
 			if (fieldElmt.hasAttribute("data-listening")) continue;
 
-			fieldElmt.addEventListener("input", this.handleFieldChange.bind(this));
+			fieldElmt.addEventListener("input", () => this.updateField(fieldElmt, field));
 			fieldElmt.setAttribute("data-listening", "");
 		}
 	}
 
 
-	handleFieldChange(ev) {
-		const fieldElmt = ev.target;
-		const field = this.fields.get(fieldElmt);
-		if (field === undefined) throw new Error("Field is missing from the list of recognised required fields!");
-
-		this.updateField(fieldElmt, field);
-	}
-
-
-	updateField(fieldElmt, field) {
+	private updateField(fieldElmt: HTMLInputElement, field: Field) {
 		this.checkField(fieldElmt, field);
 
 		this.updateInvalidFields(fieldElmt, field);
 	}
 
 
-	updateInvalidFields(fieldElmt, field) {
+	private updateInvalidFields(fieldElmt: HTMLInputElement, field: Field) {
 		const existingInvalidField = this.invalidFields.get(fieldElmt);
 
 		if (! field.valid && existingInvalidField === undefined) {
@@ -64,7 +57,7 @@ export default class FormValidator {
 
 	getAllFields() {
 		//get all of the required fields on the form
-		const fieldElmts = Array.from(this.form.querySelectorAll("*")).filter(fieldElmt => fieldElmt.hasAttribute("data-required") && ! fieldElmt.hasAttribute("disabled"));
+		const fieldElmts = this.form.querySelectorAll<HTMLInputElement>("[data-required]:not(:disabled)");
 
 		for (const fieldElmt of fieldElmts) {
 			this.fields.set(fieldElmt, {
@@ -76,17 +69,17 @@ export default class FormValidator {
 	}
 
 
-	checkField(fieldElmt, field) {
+	private checkField(fieldElmt: HTMLInputElement, field: Field) {
 		field.valid = false;
 		field.errors = [];
 		
 		//if any fields are confirmation fields of our current element --> check to see if those fields are valid
-		const confirmationFieldElmts = this.form.querySelectorAll(`input[data-confirmation="${fieldElmt.name}"]`);
+		const confirmationFieldElmts = this.form.querySelectorAll<HTMLInputElement>(`input[data-confirmation="${fieldElmt.name}"]`);
 		for (const confirmationFieldElmt of confirmationFieldElmts) {
 			const confirmationField = this.fields.get(confirmationFieldElmt);
-			if (confirmationField === null) continue;
+			if (confirmationField === undefined) continue;
 
-			this.checkField(confirmationFieldElmt);
+			this.checkField(confirmationFieldElmt, confirmationField);
 		}
 
 		//if this field is empty
@@ -107,14 +100,17 @@ export default class FormValidator {
 		//if this field is a confirmation field
 		const confirmationAttribute = fieldElmt.getAttribute("data-confirmation");
 		if (confirmationAttribute !== null) {
-			const originalFieldElmt = this.form.querySelector(`[name="${confirmationAttribute}"]`);
-			const originalField = this.fields.get(originalFieldElmt);
-			if (originalField === undefined) throw new Error("Unable to find the original field for this confirmation field!");
+			const originalFieldElmt = this.form.querySelector<HTMLInputElement>(`[name="${confirmationAttribute}"]`);
 
-			if (fieldElmt.value !== originalFieldElmt.value) {
-				fieldElmt.classList.add("invalid");
-				field.errors.push(`${field.displayName} does not match ${originalField.displayName}!`);
-				return field;
+			if (originalFieldElmt !== null) {
+				const originalField = this.fields.get(originalFieldElmt);
+				if (originalField === undefined) throw new Error("Unable to find the original field for this confirmation field!");
+	
+				if (fieldElmt.value !== originalFieldElmt.value) {
+					fieldElmt.classList.add("invalid");
+					field.errors.push(`${field.displayName} does not match ${originalField.displayName}!`);
+					return field;
+				}
 			}
 		}
 

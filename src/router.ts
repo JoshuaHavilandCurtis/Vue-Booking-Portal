@@ -1,14 +1,13 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import Error from "./views/Error.vue";
-import Testing from "./views/Testing.vue";
-import SelectDate from "./views/SelectDate.vue";
-import InputDetails from "./views/InputDetails.vue";
-import SelectTime from "./views/SelectTime.vue";
-import SelectJosh from "./views/SelectJosh.vue";
+import Error from "./routes/Error.vue";
+import Testing from "./routes/Testing.vue";
+import SelectDate from "./routes/SelectDate.vue";
+import InputDetails from "./routes/InputDetails.vue";
+import SelectTime from "./routes/SelectTime.vue";
 
 const router = createRouter({
-	history: createWebHistory(import.meta.env.BASE_URL),
+	history: createWebHistory((import.meta as any).env.BASE_URL), //TODO --- fix this
 	routes: [
 		{
 			path: "/testing",
@@ -29,11 +28,6 @@ const router = createRouter({
 			path: "/time",
 			name: "time",
 			component: SelectTime
-		},
-		{
-			path: "/josh",
-			name: "josh",
-			component: SelectJosh
 		},
 		{
 			path: '/:pathMatch(.*)*',

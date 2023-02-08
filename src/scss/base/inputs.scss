@@ -1,5 +1,5 @@
 input[type=submit], button, .button {
-	padding:8px 15px;
+	padding:0.5rem 1rem;
 	border:0;
 	background-color:var(--ow-purple);
 	color:var(--ow-primary);
@@ -40,7 +40,7 @@ select {
 	background-color:var(--ow-primary);
 	border:none;
 	outline:2px solid transparent;
-	padding:15px;
+	padding:1rem;
 
 	transition:background-color 150ms, outline-color 150ms, box-shadow 150ms;
 
@@ -79,8 +79,8 @@ select {
 }
 
 input[type=checkbox] {
-	min-width:25px;
-    min-height:25px;
+	min-width:1.5rem;
+    min-height:1.5rem;
 	accent-color:var(--ow-purple);
 
 	&:focus-visible {

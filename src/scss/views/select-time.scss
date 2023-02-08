@@ -1,16 +1,3 @@
 .intervals {
     $self: &;
-
-    li {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 30px;
-        margin-bottom: 30px;
-
-        // Here, we use $self to get the correct scope
-        #{ $self }__time {
-            font-size: 2rem;
-        }
-    }
 }

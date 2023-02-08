@@ -8,6 +8,15 @@ import { RouterLink, RouterView } from "vue-router";
 </template>
 
 <script>
+import InputDetails from "./routes/InputDetails.vue";
+
+export default {
+	name: "App",
+	components: {
+		InputDetails,
+	},
+};
+
 </script>
 
 <style lang="scss">

@@ -1,10 +1,10 @@
 <template>
 	<section class="select-date-header">
-		<span class="select-date-header__message"  v-if="$store.state.request.type !== 'centre'">{{ $store.state.request.item.message }}</span>
+		<span class="select-date-header__message"  v-if="requestType !== 'centre'">{{ requestItem.message }}</span>
 		<template v-else>
 			<span class="select-date-header__message">Book a time slot with a</span>
 			<select class="select-date-header__centre-selector" @change="handleSelectCentreChanged($event)">
-				<option v-for="subspecialty in $store.state.request.item.subspecialties" :key="subspecialty" :value="subspecialty.id">{{ subspecialty.name }}</option>
+				<option v-for="subspecialty in requestItem.subspecialties" :key="subspecialty" :value="subspecialty.id">{{ subspecialty.name }}</option>
 			</select>
 		</template>
 	</section>
@@ -12,6 +12,7 @@
 
 <script>
 export default {
+	props: ["requestType", "requestItem"],
 	methods: {
 		handleSelectCentreChanged(ev) {
 			const selectedOption = ev.target.value;

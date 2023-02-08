@@ -22,8 +22,10 @@
 	flex-direction:column;
 	justify-content:center;
 	align-items:center;
-	padding:20px;
-	margin:100px 10px 0;
+	gap:0.75rem;
+
+	padding:1.5rem;
+	margin:6rem 1rem 0;
 
 	background-color:var(--ow-blue);
 
@@ -36,34 +38,34 @@
 
 	animation:ErrorDialogPopIn 250ms;
 
-	&--heading {
+	&__heading {
 		font-size:x-large;
 		font-weight:bold;
-		padding-bottom:0.5rem;
 	}
 
-	&--content {
+	&__content {
 		display:flex;
 		flex-direction:column;
 		align-items:center;
 
-		&--default {
+		&__default {
 			font-size:medium;
-		}
-
-		&--message {
-			background-color:var(--ow-error);
-			width: 100%;
-			color: var(--ow-blue);
-			padding: 10px;
-			margin-top:1rem;
-			border-radius: 3px;
-			font-weight:bold;
-		}
-		
+		}		
 	}
 
-	&--close-btn {
-		margin-top:1rem;
+	&__error-message {
+		background-color:var(--ow-error);
+		width: 100%;
+		color: var(--ow-blue);
+		padding: 0.75rem 1rem;
+		border-radius: 3px;
+		font-weight:bold;
+	}
+
+	&__buttons {
+		display:flex;
+		flex-direction:row;
+		gap:1rem;
+		margin-top:0.75rem;
 	}
 }

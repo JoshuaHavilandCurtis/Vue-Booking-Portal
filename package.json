@@ -21,6 +21,8 @@
     "moment-timezone": "^0.5.40",
     "sass": "^1.57.1",
     "sass-loader": "^13.2.0",
+    "tslib": "^2.5.0",
+    "typescript": "^4.9.5",
     "vite": "^4.0.0",
     "vue-moment": "^4.1.0"
   }

@@ -86,24 +86,25 @@ import FormValidator from "@/classes/form-validator.class";
 export default {
 	data() {
 		return {
-            userFormValidator: null,
-            submitted: false
+            submitted: false,
+			userFormValidator: null,
 		}
 	},
 	created() {
-        this.checkRequestAndBooking(); //check that we have a valid request and booking object still
+		this.checkStoredInfo();
 	},
 	mounted() {
 		this.userFormValidator = new FormValidator(this.$refs.form);
+		this.userFormValidator.getAllFields();
 	},
 	methods: {
 
-        checkRequestAndBooking() {
+		checkStoredInfo() {
             try {
-                if (this.$store.state.request === null) throw new Error("Request is not set!");
-                if (! this.$request.validateRequest(this.$store.state.request)) throw new Error("Request is not valid!");
-                if (this.$store.state.booking?.date === null) throw new Error("Date is not set!");
-				if (this.$store.state.booking?.time === null) throw new Error("Time is not set!");
+                if (this.$store.state.request === null || ! this.$request.validateRequest(this.$store.state.request)) throw new Error("Request is not set/valid!");
+                if (this.$store.state.booking === null) throw new Error("No booking information is set!");
+                if (this.$store.state.booking.date === undefined) throw new Error("Date is not set!");
+				if (this.$store.state.booking.time === undefined) throw new Error("Time is not set!");
             } catch (e) {
 				this.$store.commit("openErrorDialog", e);
 				throw e;

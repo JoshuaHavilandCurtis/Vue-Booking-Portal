@@ -9,14 +9,6 @@
 		"subspecialties": [
 			"subspecialty1",
 			"subspecialty2"
-		],
-		"availableslots": [
-			"09:00",
-			"09:10",
-			"09:20",
-			"09:30",
-			"09:40",
-			"09:50"
 		]
 	},
 	{
@@ -29,14 +21,6 @@
 		"subspecialties": [
 			"subspecialty1",
 			"subspecialty2"
-		],
-		"availableslots": [
-			"09:00",
-			"09:10",
-			"09:20",
-			"09:30",
-			"09:40",
-			"09:50"
 		]
 	},
 	{
@@ -49,14 +33,6 @@
 		"subspecialties": [
 			"subspecialty1",
 			"subspecialty2"
-		],
-		"availableslots": [
-			"09:00",
-			"09:10",
-			"09:20",
-			"09:30",
-			"09:40",
-			"09:50"
 		]
 	},
 	{
@@ -69,14 +45,6 @@
 		"subspecialties": [
 			"subspecialty1",
 			"subspecialty2"
-		],
-		"availableslots": [
-			"09:00",
-			"09:10",
-			"09:20",
-			"09:30",
-			"09:40",
-			"09:50"
 		]
 	},
 	{
@@ -89,14 +57,6 @@
 		"subspecialties": [
 			"subspecialty1",
 			"subspecialty2"
-		],
-		"availableslots": [
-			"09:00",
-			"09:10",
-			"09:20",
-			"09:30",
-			"09:40",
-			"09:50"
 		]
 	}
 ]
