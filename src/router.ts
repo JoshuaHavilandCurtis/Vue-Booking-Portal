@@ -6,7 +6,7 @@ import SelectDate from "./routes/SelectDate.vue";
 import InputDetails from "./routes/InputDetails.vue";
 import SelectTime from "./routes/SelectTime.vue";
 
-const router = createRouter({
+export default createRouter({
 	history: createWebHistory((import.meta as any).env.BASE_URL), //TODO --- fix this
 	routes: [
 		{
@@ -36,5 +36,3 @@ const router = createRouter({
 		},
 	]
 });
-
-export default router;

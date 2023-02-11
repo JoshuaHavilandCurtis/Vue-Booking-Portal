@@ -5,7 +5,7 @@ input[type=submit], button, .button {
 	color:var(--ow-primary);
 	user-select:none;
 
-	transition:background-color 150ms;
+	transition:background-color var(--ow-animation);
 
 	&:hover {
 		text-decoration:none;
@@ -42,7 +42,7 @@ select {
 	outline:2px solid transparent;
 	padding:1rem;
 
-	transition:background-color 150ms, outline-color 150ms, box-shadow 150ms;
+	transition:background-color var(--ow-animation), outline-color var(--ow-animation), box-shadow var(--ow-animation);
 
 	&.invalid, &:focus.invalid {
 		background-color:var(--ow-error-light);
@@ -71,11 +71,20 @@ select {
 			box-shadow:0 0 0 50px var(--ow-error-light) inset;
 		}
 
+		&:disabled {
+			box-shadow:0 0 0 50px var(--ow-primary-dark) inset;
+		}
+
 		&:focus {
 			box-shadow:0 0 0 50px var(--ow-purple-very-light) inset;
 		}
 	}
 
+}
+
+.checkbox-and-label {
+	display:flex;
+	gap:1.5rem;
 }
 
 input[type=checkbox] {
@@ -89,7 +98,7 @@ input[type=checkbox] {
 	}
 
 	& + label {
-		transition:color 150ms;
+		transition:color var(--ow-animation);
 	}
 
 	&.invalid {

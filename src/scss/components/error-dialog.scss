@@ -39,7 +39,7 @@
 	animation:ErrorDialogPopIn 250ms;
 
 	&__heading {
-		font-size:x-large;
+		font-size:1.5em;
 		font-weight:bold;
 	}
 
@@ -47,10 +47,6 @@
 		display:flex;
 		flex-direction:column;
 		align-items:center;
-
-		&__default {
-			font-size:medium;
-		}		
 	}
 
 	&__error-message {
@@ -58,7 +54,7 @@
 		width: 100%;
 		color: var(--ow-blue);
 		padding: 0.75rem 1rem;
-		border-radius: 3px;
+		border-radius: var(--bs-border-radius);
 		font-weight:bold;
 	}
 

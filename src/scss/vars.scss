@@ -23,6 +23,12 @@
 
 	--ow-disabled: #808080;
 
+	//animations
+	--ow-animation-very-fast: 75ms ease-in-out;
+	--ow-animation-fast: 100ms ease-in-out;
+	--ow-animation: 150ms ease-in-out;
+	--ow-animation-slow: 300ms ease-in-out;
+
 	//timetable colors
 	--ow-timetable-invalid: var(--ow-disabled);
 	--ow-timetable-unavailable: #df5964;

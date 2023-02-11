@@ -1,60 +1,69 @@
-import { toHandlers } from "vue";
 import { createStore } from "vuex";
 import moment from "moment";
 import "moment-timezone";
+import StoreState from "./models/StoreState.interface";
+import Request from "./models/Request.interface";
+import Booking from "./models/Booking.interface";
+import RequestItem from "./models/RequestItem.interface";
 
-const bookingDateParser = (booking) => {
-	return booking === null ? null : {
-		...booking,
-		date: booking.date === undefined ? undefined : moment(booking.date),
-		time: booking.time === undefined ? undefined : moment(booking.time),
+
+// Helper functions
+
+const sessionStorageParser = {
+	get(key: string) {
+		const item = sessionStorage.getItem(key);
+		return item === null ? null : JSON.parse(item);
+	},
+	set(key: string, item: any) {
+		return sessionStorage.setItem(key, JSON.stringify(item));
+	}
+};
+
+const formatBooking = (unformattedBooking: any) => {
+	if (unformattedBooking === null) return null;
+
+	const parsedBooking: Booking = {
+		...unformattedBooking,
+		date: unformattedBooking.date === undefined ? undefined : moment(unformattedBooking.date),
+		time: unformattedBooking.time === undefined ? undefined : moment(unformattedBooking.time),
 	};
+
+	return parsedBooking;
 }
 
-const store = createStore({
+
+// Store
+
+export default createStore<StoreState>({
 	state: {
-		request: JSON.parse(sessionStorage.getItem("request")) ?? null,
-		requestItem: JSON.parse(sessionStorage.getItem("requestItem")) ?? null,
-		booking: bookingDateParser(JSON.parse(sessionStorage.getItem("booking"))) ?? null,
-		errorDialog: {
-			visible: false,
-			message: null
-		}
+		request: sessionStorageParser.get("request") ?? null,
+		requestItem: sessionStorageParser.get("requestItem") ?? null,
+		booking: formatBooking(sessionStorageParser.get("booking")) ?? null
 	},
 	mutations: {
-		updateRequest(state, payload) {
+		updateRequest(state, payload: Request | Partial<Request>) {
 			if (state.request === null) {
-				state.request = payload;
+				state.request = payload as Request;
 			} else {
 				Object.assign(state.request, payload);
 			}
-			sessionStorage.setItem("request", JSON.stringify(state.request));
+			sessionStorageParser.set("request", state.request);
 		},
-		updateRequestItem(state, payload) {
+		updateRequestItem(state, payload: RequestItem | Partial<RequestItem>) {
 			if (state.requestItem === null) {
-				state.requestItem = payload;
+				state.requestItem = payload as RequestItem;
 			} else {
 				Object.assign(state.requestItem, payload);
 			}
-			sessionStorage.setItem("requestItem", JSON.stringify(state.request));
+			sessionStorageParser.set("requestItem", state.requestItem);
 		},
-		updateBooking(state, payload) {
+		updateBooking(state, payload: Booking | Partial<Booking>) {
 			if (state.booking === null) {
-				state.booking = payload;
+				state.booking = payload as Booking;
 			} else {
 				Object.assign(state.booking, payload);
 			}
-			sessionStorage.setItem("booking", JSON.stringify(state.booking));
-		},
-		openErrorDialog(state, payload) {
-			state.errorDialog.visible = true;
-			state.errorDialog.message = payload ?? null;
-		},
-		closeErrorDialog(state) {
-			state.errorDialog.visible = false;
-			state.errorDialog.message = null;
+			sessionStorageParser.set("booking", state.booking);
 		}
 	}
 });
-
-export default store;

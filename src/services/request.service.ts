@@ -1,42 +1,38 @@
+import Request, { RequestType } from "@/models/Request.interface";
+import { reactive } from "vue";
+import { RouteParams } from "vue-router";
 import apiService from "./api.service";
 
-class RequestService {
+export class RequestService {
+
+	/** Serivce to handle the request information */
+
+	validTypes = ["consultant", "test", "treatment", "condition", "centre"];
+
 	constructor() {}
 
-	getRequest(routeParams) {
-		const request = { type: routeParams?.type ?? null, id: routeParams?.id ?? null };
-		if (! this.validateRequest(request)) throw new Error("URL is not valid!");
-		
+
+	getRequest(routeParams: RouteParams) {
+		const id = parseInt(routeParams.id.toString());
+		const type = routeParams.type.toString();
+
+		if (! this.validTypes.includes(type) || isNaN(id)) throw new Error("URL params are not valid!");
+
+		const request: Request = { type: type as RequestType, id };
+
 		return request;
 	}
 
-	async getRequestItem(request) {
-		let requestItem;
-		try {
-			requestItem = await apiService.getItem(request);
-		} catch (e) {
-			throw "Request is not valid!";
-		}
+
+	async getRequestItem(request: Request) {
+		const requestItem = await apiService.getItem(request).catch(() => { throw new Error("Request is not valid!") });
 		
-		if (request.type === "centre") requestItem.selectedSubspecialtyId = requestItem.subspecialties[0].id; //first subspecialty
+		if (request.type === "centre") requestItem.selectedSubspecialtyId = requestItem.subspecialties[0].id; //select first subspecialty
 
 		return requestItem;
-	}
-	
-	validateRequest(request) {
-		if (request.type === null || request.id === null) return false;
-
-		switch (request.type) {
-			case "consultant": return true;
-			case "test": return true;
-			case "treatment": return true;
-			case "condition": return true;
-			case "centre": return true;
-			default: return false;
-		}
 	}
 
 }
 
-const requestService = new RequestService();
-export default requestService;
+const $request = new RequestService();
+export default reactive($request);

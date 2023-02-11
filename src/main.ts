@@ -1,17 +1,9 @@
 import { createApp } from "vue";
 
-/* libs */
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap";
-
 /* vue */
-import App from "./App.vue";
-import store from "./store";
-import router from "./router";
-
-/* services */
-import apiService from "./services/api.service";
-import requestService from "./services/request.service";
+import App from "@/App.vue";
+import store from "@/store";
+import router from "@/router";
 
 /* components */
 
@@ -19,27 +11,29 @@ import requestService from "./services/request.service";
 import Container from "./components/ui/Container.vue";
 
 //general
-import Timetable from "./components/select-date/Timetable.vue";
-import SelectDateHeader from "./components/select-date/SelectDateHeader.vue";
-import ConsultantSelector from "./components/select-time/ConsultantSelector.vue";
-import SlotSelector from "./components/select-time/SlotSelector.vue";
-import ErrorDialog from "./components/ErrorDialog.vue";
-import LoadingWheel from "./components/LoadingWheel.vue";
+import Timetable from "@/components/select-date/Timetable.vue";
+import SelectDateHeader from "@/components/select-date/SelectDateHeader.vue";
+import ConsultantSelector from "@/components/select-time/ConsultantSelector.vue";
+import SlotSelector from "@/components/select-time/SlotSelector.vue";
+import FormField from "@/components/input-details/FormField.vue";
+import ErrorDialog from "@/components/ErrorDialog.vue";
+import LoadingSpinner from "@/components/LoadingSpinner.vue";
 
 
 const app = createApp(App);
 
-app.config.globalProperties.$api = apiService;
-app.config.globalProperties.$request = requestService;
+// app.config.globalProperties.$api = apiService;
+// app.config.globalProperties.$request = requestService;
 
 app.component("container", Container);
 
 app.component("timetable", Timetable);
 app.component("select-date-header", SelectDateHeader);
 app.component("error-dialog", ErrorDialog);
-app.component("loading-wheel", LoadingWheel);
+app.component("loading-spinner", LoadingSpinner);
 app.component("consultant-selector", ConsultantSelector);
 app.component("slot-selector", SlotSelector);
+app.component("form-field", FormField);
 
 app.use(store);
 app.use(router);

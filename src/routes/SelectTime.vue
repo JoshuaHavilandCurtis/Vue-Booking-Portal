@@ -1,79 +1,95 @@
 <template>
-    <container class="select-time fadein my-3" v-if="$store.state.request !== null && (consultants !== null ^ slots !== null)">
+    <transition appear>
+        <container class="select-time my-3" v-if="storedInfoValidity.valid && slotSelectorIsSet">
 
-        <div class="row">
-            <consultant-selector v-if="consultants !== null" :consultants="consultants"></consultant-selector>
-            <slot-selector v-else-if="slots !== null" :slots="slots"></slot-selector>
-        </div>
+            <div class="row">
+                <consultant-selector v-if="consultants !== null" :consultants="consultants"></consultant-selector>
+                <slot-selector v-else-if="slots !== null" :slots="slots"></slot-selector>
+            </div>
 
-    </container>
-    <loading-wheel v-else class="fill-container"></loading-wheel>
+        </container>
+
+        <loading-spinner v-else></loading-spinner>
+    </transition>
 </template>
 
-<script>
-import moment from "moment";
-import "moment-timezone";
+<script setup lang="ts">
+import { computed, ref } from "vue";
+import { useStore } from "vuex";
+import $api from "@/services/api.service";
+import $errorDialog from "@/services/errorDialog.service";
+import moment, { Moment } from "moment";
+import { Slot } from "@/models/api/SlotsResponse.api.interface";
+import ConsultantInfo from "@/models/ConsultantInfo.interface";
+import StoreState from "@/models/StoreState.interface";
 
-export default {
-    data() {
-        return {
-            consultants: null,
-            slots: null
-        }
-    },
-	created() {
-        this.checkStoredInfo();
-		this.checkWhichSlotSelectorToUse();
-	},
-	methods: {
 
-        checkStoredInfo() {
-            try {
-                if (this.$store.state.request === null || ! this.$request.validateRequest(this.$store.state.request)) throw new Error("Request is not set/valid!");
-                if (this.$store.state.booking === null) throw new Error("No booking information is set!");
-                if (this.$store.state.booking.date === undefined) throw new Error("Date is not set!");
-            } catch (e) {
-				this.$store.commit("openErrorDialog", e);
-				throw e;
-            }
-        },
+/* DATA */
 
-        async checkWhichSlotSelectorToUse() {
-            try {
-                await this.setSelectorData();
-            } catch(e) {
-                this.$store.commit("openErrorDialog", "Failed to get slot data!");
-                throw e;
-            }
-        },
+const $store = useStore<StoreState>();
 
-        async setSelectorData() {
-            const consultantSelector = true;
+const consultants = ref<ConsultantInfo[]>();
+const slots = ref<Moment[]>();
 
-            const slotToMoment = (slot) => moment(`${slot.SlotDate} ${slot.StartTime}`, "YYYY-MM-DD HH:mm:ss");
 
-            if (consultantSelector) {
-                const consultantsInfo = await this.$api.getRelatedConsultants(this.$store.state.request);
+/* COMPUTED */
 
-                const consultants = await Promise.all(consultantsInfo.map(async consultant => {
-                    const slots = await this.$api.getSlots(consultant.id, moment(this.$store.state.booking.date));
+const storedInfoValidity = computed(() => 
+	$store.state.request === null ? { valid: false, message: "Request is not set!" } : 
+	$store.state.requestItem === null ? { valid: false, message: "Request item is not set!" } :
+	$store.state.booking?.date === undefined ? { valid: false, message: "Date is not set!" } : 
+	{ valid: true });
 
-                    return {
-                        info: consultant,
-                        slots: slots.map(slot => slotToMoment(slot)).filter(slotMoment => slotMoment.isSameOrAfter(this.$store.state.booking.date) && slotMoment.isBefore(this.$store.state.booking.date.clone().add(1, "hours")))
-                    }
-                }));
+const slotSelectorIsSet = computed(() => (consultants.value !== undefined ||  slots.value !== undefined) && ! (consultants.value !== undefined && slots.value !== undefined)); //xor operator doesnt work?
 
-                this.consultants = await consultants;
 
-            } else {
-                const slots = await this.$api.getSlots(this.$store.state.request.id, moment(this.$store.state.booking.date));
-                this.slots = slots.map(slot => slotToMoment(slot));
-            }
-        }
+/* METHODS */
 
-	}
-}
+const checkWhichSlotSelectorToUse = async () => {
+    try {
+        await setSelectorData();
+    } catch(e) {
+        throw new Error("Failed to get slot data!");
+    }
+};
+
+const setSelectorData = async () => {
+    const consultantSelector = true;
+
+    const slotToMoment = (slot: Slot) => moment(`${slot.SlotDate} ${slot.StartTime}`, "YYYY-MM-DD HH:mm:ss");
+
+    if (consultantSelector) {
+        const consultantsInfo = await $api.getRelevantConsultants($store.state.request!);
+
+        consultants.value = await Promise.all(consultantsInfo.map(async consultant => {
+            const slotMoments = await $api.getSlots(consultant.id, moment($store.state.booking!.date));
+
+            const consultantInfo: ConsultantInfo = {
+                ...consultant,
+                slots: slotMoments.map(slot => slotToMoment(slot)).filter(slotMoment => slotMoment.isSameOrAfter($store.state.booking!.date) && slotMoment.isBefore($store.state.booking!.date!.clone().add(1, "hours")))
+            };
+
+            return consultantInfo;
+        }));
+
+    } else {
+        const slotMoments = await $api.getSlots($store.state.request!.id, moment($store.state.booking!.date));
+        slots.value = slotMoments.map(slot => slotToMoment(slot));
+    }
+};
+
+
+/* RUNTIME */
+
+(async () => {
+    try {
+        if (! storedInfoValidity.value.valid) throw storedInfoValidity.value.message;
+        await checkWhichSlotSelectorToUse();
+    } catch(e) {
+        $errorDialog.open(e as string);
+    }
+})();
+
 </script>
 
 <style lang="scss">

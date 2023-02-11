@@ -6,9 +6,11 @@
 html {
 	display:flex; //todo this is not ideal
 	flex-direction:column;
+	overflow-x:hidden;
 }
 
 body {
+	overflow-x:hidden;
 	background-color:var(--ow-blue);
 	height:100vh;
 	height:100dvh;

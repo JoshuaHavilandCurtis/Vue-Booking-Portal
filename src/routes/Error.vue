@@ -1,12 +1,12 @@
-<script>
-export default {
-	created() {
-        try {
-            throw new Error("Invalid route!");
-        } catch (e) {
-            this.$store.commit("openErrorDialog", e);
-            console.error(e);
-        }
-    }
+<template></template>
+
+<script setup lang="ts">
+import $errorDialog from "@/services/errorDialog.service";
+
+try {
+	throw new Error("Invalid route!");
+} catch(e) {
+	$errorDialog.open(e as string);
 }
+
 </script>

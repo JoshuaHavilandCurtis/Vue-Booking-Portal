@@ -1,9 +1,18 @@
+import ConsultantsResponse from "@/models/api/ConsultantsResponse.interface";
+import SlotsResponse from "@/models/api/SlotsResponse.api.interface";
+import Request from "@/models/Request.interface";
+import { Moment } from "moment";
+import { reactive } from "vue";
 import apiConfig from "../api.config";
 
-class ApiService {
+export class ApiService {
+
+	/** Service to handle api functionality */
+
 	constructor() {}
 
-	async getItem(request) {
+
+	async getItem(request: Request) {
 		let response;
 
 		switch (request.type) {
@@ -28,32 +37,34 @@ class ApiService {
 		return response.json();
 	}
 
-	async getRelatedConsultants(request) {
+
+	async getRelevantConsultants(request: Request) {
 		let response;
 
 		switch (request.type) {
-			case "consultant": 
-				response = await fetch(apiConfig.umbraco.getRelatedConsultants);
+			case "consultant":
+				response = await fetch(apiConfig.umbraco.getRelevantConsultants);
 				break;
-			case "test": 
-				response = await fetch(apiConfig.umbraco.getRelatedConsultants);
+			case "test":
+				response = await fetch(apiConfig.umbraco.getRelevantConsultants);
 				break;
-			case "treatment": 
-				response = await fetch(apiConfig.umbraco.getRelatedConsultants);
+			case "treatment":
+				response = await fetch(apiConfig.umbraco.getRelevantConsultants);
 				break;
-			case "condition": 
-				response = await fetch(apiConfig.umbraco.getRelatedConsultants);
+			case "condition":
+				response = await fetch(apiConfig.umbraco.getRelevantConsultants);
 				break;
-			case "centre": 
-				response = await fetch(apiConfig.umbraco.getRelatedConsultants); //request.selectedSubspecialtyId !!!!!
+			case "centre":
+				response = await fetch(apiConfig.umbraco.getRelevantConsultants); //request.selectedSubspecialtyId !!!!!
 				break;
-			default: return null;
 		}
 
-		return response.json();
-	}
+		const data: ConsultantsResponse = await response.json();
+		return data;
+0	}
 
-	async getSlots(id, weekCommencing) {
+
+	async getSlots(id: number, weekCommencing: Moment) {
 		const response = await fetch(apiConfig.ow.getSlotsById, {
 			method: "post",
 			body: JSON.stringify({
@@ -69,12 +80,12 @@ class ApiService {
 			}
 		});
 
-		const data = await response.json();
+		const data: SlotsResponse = await response.json();
 
 		return data.Data.Slots.Resources[0].Slot;
 	}
 
 }
 
-const apiService = new ApiService();
-export default apiService;
+const $api = new ApiService();
+export default reactive($api);

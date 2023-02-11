@@ -53,9 +53,9 @@ $label_padding: 1rem;
 				height:$slot_height;
 				background-color:var(--ow-timetable-unavailable);
 				border:4px solid var(--ow-background);
-				border-radius:6px;
+				border-radius:var(--bs-border-radius-lg);
 	
-				animation:ScaleIn 0.6s ease-in-out;
+				animation:ScaleIn 500ms ease-in-out;
 	
 				&.invalid {
 					background-color:var(--ow-timetable-invalid);
@@ -64,7 +64,7 @@ $label_padding: 1rem;
 				&.available {
 					background-color:var(--ow-timetable-available);
 					
-					transition:background-color 75ms, border 75ms;
+					transition:background-color var(--ow-animation-very-fast), border var(--ow-animation-very-fast);
 	
 					&:hover {
 						background-color:var(--ow-timetable-available-hover);
