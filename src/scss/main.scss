@@ -2,10 +2,17 @@
 @import "~/bootstrap/dist/css/bootstrap.min.css";
 @import "~/@fortawesome/fontawesome-free/css/all.min.css";
 
+//scss logic
+@import "scss-logic/variables";
+
+//general
 @import "global";
 @import "vars";
-@import "keyframes";
+@import "animations";
 @import "utils";
+
+//fonts
+@import "fonts/roboto";
 
 //base
 @import "base/inputs";

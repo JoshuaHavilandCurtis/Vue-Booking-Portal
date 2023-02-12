@@ -22,10 +22,8 @@ import $errorDialog from "@/services/errorDialog.service";
 const $router = useRouter();
 
 const isProduction = process.env.NODE_ENV === "production";
-
-
 </script>
 
 <style lang="scss">
-@import "@/scss/components/error-dialog";
+@import "@/scss/components/ErrorDialog";
 </style>

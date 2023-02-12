@@ -22,7 +22,11 @@
 		"paths": {
 			"@/*": [
 				"./src/*"
+			],
+			"~/*": [
+				"./node_modules/*"
 			]
-		}
+		},
+		"types": ["vite/client"]
 	}
 }

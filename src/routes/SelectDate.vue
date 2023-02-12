@@ -1,48 +1,51 @@
 <template>
-	<transition appear>
-		<container class="select-date fadein my-3" v-if="storedInfoValidity.valid && timetableDataIsValid">
+	<transition name="route-loader" appear>
+		<container class="select-date my-3" v-if="storedInfoValidity.valid && timetableDataIsReady">
 
 			<div class="row mb-4">
-				<select-date-header :requestType="$store.state.request!.type" :requestItem="$store.state.requestItem"></select-date-header>
+				<select-date-header class="header-animation" :requestType="$store.state.request!.type" :requestItem="$store.state.requestItem!"></select-date-header>
 			</div>
 
-			<div class="row">
+			<div class="row mb-4">
 				<span class="select-date__date-range row justify-content-center">Date range: {{ timetableHelper.startDate.format("YYYY-MM-DD") }} to {{ timetableHelper.endDate.clone().subtract(1, "milliseconds").format("YYYY-MM-DD") }}</span>
 			</div>
 		
 			<div class="row">
 				<div class="col-2 d-flex justify-content-center align-items-center">
-					<button class="select-date__load-previous" ref="renderPreviousWeekButton" @click="renderWeek.previous()" v-if="timetableHelper.startDate.clone().day(1) >= timetableHelper.presentMoment.clone().day(1)">Previous week</button>
+					<button ref="renderPreviousWeekButton" @click="renderWeek.previous()" v-if="timetableHelper.startDate.clone().day(1) >= timetableHelper.presentMoment.clone().day(1)">Previous week</button>
 				</div>
 
 				<div class="col-8 d-flex position-relative">
-					<timetable :placeholderRows="timetableHelper.times.length" :placeholderColumns="timetableHelper.endDay - timetableHelper.startDay + 1" :data="timetableHelper.data"></timetable>
+					<Timetable :placeholderRows="timetableHelper.times.length" :placeholderColumns="timetableHelper.endDay - timetableHelper.startDay + 1" :data="timetableHelper.data!" />
 					
-					<transition>
-						<loading-spinner v-if="! timetableHelper.loaded"></loading-spinner>
+					<transition name="element-loader">
+						<LoadingSpinner v-if="! timetableHelper.loaded" />
 					</transition>
 				</div>
 
 				<div class="col-2 d-flex justify-content-center align-items-center">
-					<button class="select-date__load-next" ref="renderNextWeekButton" @click="renderWeek.next()">Next week</button>
+					<button ref="renderNextWeekButton" @click="renderWeek.next()">Next week</button>
 				</div>
 			</div>
 
 		</container>
 
-	
-		<loading-spinner v-else></loading-spinner>
+		<LoadingSpinner v-else />
 	</transition>
 </template>
 
 <script async setup lang="ts">
+import SelectDateHeader from "@/components/SelectDate/SelectDateHeader.vue";
+import Timetable from "@/components/SelectDate/Timetable.vue";
+
 import { ref, computed, reactive } from "vue";
 import { useStore } from "vuex";
+import StoreState from "@/models/StoreState.interface";
 import { useRoute } from "vue-router";
 import $request from "@/services/request.service";
-import TimetableHelper from "@/helpers/Timetable.helper";
-import StoreState from "@/models/StoreState.interface";
 import $errorDialog from "@/services/errorDialog.service";
+
+import TimetableHelper from "@/helpers/Timetable.helper";
 
 
 /* DATA */
@@ -73,7 +76,7 @@ const storedInfoValidity = computed(() =>
 	$store.state.requestItem === null ? { valid: false, message: "Request item is not set!" } :
 	{ valid: true });
 
-const timetableDataIsValid = computed(() => timetableHelper.data !== null);
+const timetableDataIsReady = computed(() => timetableHelper.data !== null);
 
 
 /* METHODS */
@@ -123,7 +126,6 @@ const renderWeek = {
 		$errorDialog.open(e as string);
 	}
 })();
-
 </script>
 
 <style lang="scss">

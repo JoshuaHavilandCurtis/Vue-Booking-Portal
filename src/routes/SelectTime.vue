@@ -1,27 +1,36 @@
 <template>
-    <transition appear>
-        <container class="select-time my-3" v-if="storedInfoValidity.valid && slotSelectorIsSet">
+    <transition name="route-loader" appear>
+        <container class="select-time my-3" v-if="storedInfoValidity.valid && slotSelectorHasBeenDetermined">
+
+            <div class="row mb-4">
+                <h2 v-if="consultants !== undefined" class="header-animation">Please select a slot with a consultant for <b>{{ $store.state.booking!.date?.format("DD/MM/YYYY") }}</b></h2>
+                <h2 v-else-if="slots !== undefined" class="header-animation">Please select an available slot for <b>{{ $store.state.booking!.date?.format("DD/MM/YYYY") }}</b></h2>
+            </div>
 
             <div class="row">
-                <consultant-selector v-if="consultants !== null" :consultants="consultants"></consultant-selector>
-                <slot-selector v-else-if="slots !== null" :slots="slots"></slot-selector>
+                <ConsultantSelector v-if="consultants !== undefined" :consultants="consultants" />
+                <SlotSelector v-else-if="slots !== undefined" :slots="slots" />
             </div>
 
         </container>
 
-        <loading-spinner v-else></loading-spinner>
+        <LoadingSpinner v-else />
     </transition>
 </template>
 
 <script setup lang="ts">
+import ConsultantSelector from "@/components/SelectTime/ConsultantSelector.vue";
+import SlotSelector from "@/components/SelectTime/SlotSelector.vue";
+
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
+import StoreState from "@/models/StoreState.interface";
 import $api from "@/services/api.service";
 import $errorDialog from "@/services/errorDialog.service";
+
 import moment, { Moment } from "moment";
-import { Slot } from "@/models/api/SlotsResponse.api.interface";
 import ConsultantInfo from "@/models/ConsultantInfo.interface";
-import StoreState from "@/models/StoreState.interface";
+import { Slot } from "@/models/api/SlotsResponse.api.interface";
 
 
 /* DATA */
@@ -40,7 +49,7 @@ const storedInfoValidity = computed(() =>
 	$store.state.booking?.date === undefined ? { valid: false, message: "Date is not set!" } : 
 	{ valid: true });
 
-const slotSelectorIsSet = computed(() => (consultants.value !== undefined ||  slots.value !== undefined) && ! (consultants.value !== undefined && slots.value !== undefined)); //xor operator doesnt work?
+const slotSelectorHasBeenDetermined = computed(() => (consultants.value !== undefined ||  slots.value !== undefined) && ! (consultants.value !== undefined && slots.value !== undefined)); //xor operator doesnt work?
 
 
 /* METHODS */
@@ -54,28 +63,38 @@ const checkWhichSlotSelectorToUse = async () => {
 };
 
 const setSelectorData = async () => {
+    slots.value = undefined;
+    consultants.value = undefined;
+    
     const consultantSelector = true;
 
-    const slotToMoment = (slot: Slot) => moment(`${slot.SlotDate} ${slot.StartTime}`, "YYYY-MM-DD HH:mm:ss");
-
     if (consultantSelector) {
-        const consultantsInfo = await $api.getRelevantConsultants($store.state.request!);
-
-        consultants.value = await Promise.all(consultantsInfo.map(async consultant => {
-            const slotMoments = await $api.getSlots(consultant.id, moment($store.state.booking!.date));
-
-            const consultantInfo: ConsultantInfo = {
-                ...consultant,
-                slots: slotMoments.map(slot => slotToMoment(slot)).filter(slotMoment => slotMoment.isSameOrAfter($store.state.booking!.date) && slotMoment.isBefore($store.state.booking!.date!.clone().add(1, "hours")))
-            };
-
-            return consultantInfo;
-        }));
-
+        consultants.value = await getConsultants();
     } else {
-        const slotMoments = await $api.getSlots($store.state.request!.id, moment($store.state.booking!.date));
-        slots.value = slotMoments.map(slot => slotToMoment(slot));
+        slots.value = await getSlots();
     }
+};
+
+const slotToMoment = (slot: Slot) => moment(`${slot.SlotDate} ${slot.StartTime}`, "YYYY-MM-DD HH:mm:ss");
+
+const getSlots = async () => {
+    const slotMoments = await $api.getSlots($store.state.request!.id, moment($store.state.booking!.date));
+    return slotMoments.map(slot => slotToMoment(slot));
+};
+
+const getConsultants = async () => {
+    const consultantsInfo = await $api.getRelevantConsultants($store.state.request!);
+
+    return await Promise.all(consultantsInfo.map(async consultant => {
+        const slotMoments = await $api.getSlots(consultant.id, moment($store.state.booking!.date));
+
+        const consultantInfo: ConsultantInfo = {
+            ...consultant,
+            slots: slotMoments.map(slot => slotToMoment(slot)).filter(slotMoment => slotMoment.isSameOrAfter($store.state.booking!.date) && slotMoment.isBefore($store.state.booking!.date!.clone().add(1, "hours")))
+        };
+
+        return consultantInfo;
+    }));
 };
 
 
@@ -89,7 +108,6 @@ const setSelectorData = async () => {
         $errorDialog.open(e as string);
     }
 })();
-
 </script>
 
 <style lang="scss">

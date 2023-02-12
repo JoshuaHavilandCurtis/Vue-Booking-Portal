@@ -1,4 +1,5 @@
 span, p, h1, h2, h3, h4, h5, h6, legend, label, li, div {
+	margin:0;
 	color:var(--ow-primary);
 	word-break: break-word;
 }
@@ -17,4 +18,8 @@ ul, ol, dl, menu {
 	list-style: none;
 	margin:0;
 	padding:0;
+}
+
+li {
+	display:inline-flex;
 }

@@ -1,0 +1,98 @@
+.timetable {
+	$slot_gap: 0.4rem;
+	$slot_height: 3rem;
+	$label_distance: 1rem;
+
+	//DONT TOUCH THIS ONE!
+	$slot_height: $slot_height + $slot_gap;
+
+	display:flex;
+	width:100%;
+
+	&__row-labels {
+		display:flex;
+		flex-direction:column;
+		justify-content:flex-end;
+
+		padding-right:$label_distance;
+
+		&__item {
+			display:flex;
+			align-items:center;
+			justify-content:flex-end;
+
+			word-break:keep-all;
+			height:$slot_height;
+		}
+	}
+
+	&__column-labels {
+		display:flex;
+		flex-direction:row;
+		padding-bottom:$label_distance;
+
+		&__item {
+			display:flex;
+			align-items:center;
+			justify-content:center;
+			flex:1;
+		}
+	}
+
+	&__data {
+		&__wrapper {
+			width:100%;
+		}
+
+		display:flex;
+		flex-direction:row;
+		background-color:transparent;
+
+		&__column {
+			display:flex;
+			flex-direction:column;
+			flex:1;
+
+			&__slot {
+				&__wrapper {
+					position:relative;
+					
+					height:$slot_height;
+					border:$slot_gap*0.5 solid transparent;
+
+					@keyframes OverflowHack { from { overflow:hidden; pointer-events: none; } to { overflow:hidden; pointer-events: none; } }
+					animation: OverflowHack var(--ow-animation-very-slow);
+					pointer-events:unset;
+					overflow:unset; //fix ScaleIn transform overflowing when browser approximates height... also stop pointer events while this is happening
+				}
+
+				position:absolute;
+				inset: 0 0 0 0;
+				
+				background-color:var(--ow-timetable-unavailable);
+				border-radius:var(--bs-border-radius-sm);
+				//outline:$slot_gap solid var(--ow-background); //fill in the border space created by the wrapper - used for transform:scale;
+
+				animation:ScaleIn var(--ow-animation-very-slow);
+	
+				&.invalid {
+					background-color:var(--ow-timetable-invalid);
+				}
+	
+				&.available {
+					background-color:var(--ow-timetable-available);
+					transform:scale(1);
+
+					&:hover {
+						transition:background-color var(--ow-animation-very-fast), transform var(--ow-animation-very-fast);
+						background-color:var(--ow-timetable-available-hover);
+						transform:scale(1.05);
+						
+						z-index:1;
+						cursor:pointer;
+					}
+				}
+			}
+		}
+	}
+}

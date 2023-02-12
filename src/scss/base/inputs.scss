@@ -1,25 +1,37 @@
 input[type=submit], button, .button {
+	display:inline-flex;
+	justify-content: center;
+	text-align: center;
+
 	padding:0.5rem 1rem;
-	border:0;
+	border:none;
 	background-color:var(--ow-purple);
 	color:var(--ow-primary);
+	
 	user-select:none;
 
-	transition:background-color var(--ow-animation);
-
+	&:focus-visible {
+		outline:0;
+		outline:4px solid var(--ow-purple-light);
+	}
+	
 	&:hover {
+		transition:background-color var(--ow-animation-fast);
 		text-decoration:none;
 		background-color:var(--ow-purple-dark);
 		color:var(--ow-primary);
+		cursor: pointer;
+	}
+
+	&.button-dark {
+		background-color:var(--ow-purple-dark);
+	
+		&:hover {
+			background-color:var(--ow-purple-very-dark);
+		}
 	}
 }
 
-input[type=submit], button[type=submit], .button {
-	&:focus-visible {
-		outline:0;
-		outline:4px solid var(--ow-purple-very-dark);
-	}
-}
 
 input[type=date],
 input[type=datetime],
@@ -42,9 +54,15 @@ select {
 	outline:2px solid transparent;
 	padding:1rem;
 
-	transition:background-color var(--ow-animation), outline-color var(--ow-animation), box-shadow var(--ow-animation);
-
-	&.invalid, &:focus.invalid {
+	transition:background-color var(--ow-animation-fast), outline-color var(--ow-animation-fast), box-shadow var(--ow-animation-fast);
+	
+	&:focus {
+		//outline:none;
+		background-color:var(--ow-purple-very-light);
+		outline-color:var(--ow-purple-very-light);
+	}
+	
+	&.invalid {
 		background-color:var(--ow-error-light);
 		outline-color:var(--ow-error);
 	}
@@ -54,12 +72,6 @@ select {
 		color:var(--ow-disabled);
 	}
 
-	&:focus {
-		//outline:none;
-		background-color:var(--ow-purple-very-light);
-		outline-color:var(--ow-purple-very-light);
-	}
-
 	//override autofill background colors - have to use box-shadow hack
 	&:-webkit-autofill,
 	&:-webkit-autofill:hover,
@@ -67,16 +79,16 @@ select {
 	&:-webkit-autofill:active {
 		box-shadow:0 0 0 50px var(--ow-primary) inset;
 
-		&.invalid, &:focus.invalid {
+		&:focus {
+			box-shadow:0 0 0 50px var(--ow-purple-very-light) inset;
+		}
+
+		&.invalid {
 			box-shadow:0 0 0 50px var(--ow-error-light) inset;
 		}
 
 		&:disabled {
 			box-shadow:0 0 0 50px var(--ow-primary-dark) inset;
-		}
-
-		&:focus {
-			box-shadow:0 0 0 50px var(--ow-purple-very-light) inset;
 		}
 	}
 
@@ -84,21 +96,29 @@ select {
 
 .checkbox-and-label {
 	display:flex;
-	gap:1.5rem;
 }
 
 input[type=checkbox] {
-	min-width:1.5rem;
-    min-height:1.5rem;
+	$size: 1.5rem;
+
+	min-width:$size;
+    min-height:$size;
+	max-width:$size;
+    max-height:$size;
+
+	margin-top:auto;
+	margin-bottom:auto;
+
 	accent-color:var(--ow-purple);
 
 	&:focus-visible {
 		outline:0;
-		outline:4px solid var(--ow-purple);
+		outline:4px solid var(--ow-purple-light);
 	}
 
 	& + label {
-		transition:color var(--ow-animation);
+		transition:color var(--ow-animation-fast);
+		padding-left:1.5rem;
 	}
 
 	&.invalid {

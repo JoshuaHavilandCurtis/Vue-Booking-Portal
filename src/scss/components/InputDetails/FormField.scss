@@ -1,0 +1,91 @@
+@import "~/bootstrap/scss/bootstrap-grid";
+
+
+.form-field {
+	$r: &;
+	
+	display:flex;
+	width: 100%;
+	position:relative;
+
+	&__errors {
+		$r2: &;
+
+		position:absolute;
+		right:1.75rem;
+		top:50%;
+		transform:translateY(-50%);
+	
+		//annoying zindex hack... fucking zindexes and transitions
+		@keyframes ZIndexHack { from { z-index: 10 } to { z-index: unset } }
+		&:hover { z-index:10; animation:unset; }
+		animation: ZIndexHack var(--ow-animation-fast);
+	
+		pointer-events:none;
+	
+		&.visible {
+			pointer-events:unset;
+
+			& + *:is(*) { //moar specificity
+				padding-right: 3.5rem;
+			}
+	
+			#{$r2}__icon {
+				pointer-events: unset;
+				filter:opacity(1);
+			}
+		}
+	
+		&__icon {
+			display: flex;
+			align-items: center;
+	
+			position: absolute;
+			top:50%;
+			transform:translate(-50%, -50%);
+	
+			font-size: 1.5em;
+			border-radius:100%;
+			color: var(--ow-error);
+	
+			cursor:help;
+	
+			pointer-events:none;
+			filter:opacity(0);
+			transition:filter var(--ow-animation-fast);
+	
+			&:hover {
+				+ #{$r2}__list {
+					pointer-events: unset;
+					filter:opacity(1);
+				}
+			}
+		}
+	
+		&__list {
+			display:flex;
+			flex-direction: column;
+			gap:0.5rem;
+			
+			position:absolute;
+			top: 1.2rem;
+			transform: translateX(-83%);
+			width:max-content;
+			
+			
+			background-color:var(--ow-error);
+			padding:0.5rem 1rem;
+			box-shadow: 3px 3px 7px -4px black;
+	
+			pointer-events:none;
+			filter:opacity(0);
+	
+			transition:filter var(--ow-animation-fast);
+	
+			@include media-breakpoint-up(md) {
+				top:1.5rem;
+				transform:translateX(-50%);
+			}
+		}
+	}
+}

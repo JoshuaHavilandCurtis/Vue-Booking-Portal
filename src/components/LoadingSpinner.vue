@@ -5,13 +5,11 @@
 </template>
 
 <script setup lang="ts">
-
 defineProps<{
 	inline?: boolean
 }>();
-
 </script>
 
 <style lang="scss">
-@import "@/scss/components/loading-spinner";
+@import "@/scss/components/LoadingSpinner";
 </style>

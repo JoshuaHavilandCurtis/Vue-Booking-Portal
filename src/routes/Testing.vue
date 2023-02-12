@@ -13,11 +13,11 @@
 <script setup lang="ts"></script>
 
 <style lang="scss">
-    .home {
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        min-width:100vh;
-        min-height:100vh;
-    }
+.home {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-width:100vh;
+    min-height:100vh;
+}
 </style>

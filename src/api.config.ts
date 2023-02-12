@@ -1,17 +1,21 @@
-const owApi = "http://127.0.0.1:6969/https://api-test.welbeckhealth.com/api/app/";
-const umbracoApi = window.location.origin;
+import config from "@/config";
+
+const json = `${location.origin}/${config.staticPath}/temp`;
+const corsBypasser = "http://127.0.0.1:6969";
+const owApi = `${corsBypasser}/https://api-test.welbeckhealth.com/api/app`;
+//const umbracoApi = "";
 
 export default {
 	ow: {
-		getSlotsById: owApi + "PostAPIAvailabilityRequest"
+		getSlotsById: `${owApi}/PostAPIAvailabilityRequest`
 	},
 	umbraco: {
-		getRelevantConsultants: umbracoApi + "/temp/multiple/consultants.json",
+		getRelevantConsultants:  `${json}/multiple/consultants.json`,
 
-		getConsultantById: umbracoApi + "/temp/single/consultant.json",
-		getTestById: umbracoApi + "/temp/single/test.json",
-		getTreatmentById: umbracoApi + "/temp/single/treatment.json",
-		getConditionById: umbracoApi + "/temp/single/condition.json",
-		getCentreById: umbracoApi + "/temp/single/centre.json"
+		getConsultantById: `${json}/single/consultant.json`,
+		getTestById: `${json}/single/test.json`,
+		getTreatmentById: `${json}/single/treatment.json`,
+		getConditionById: `${json}/single/condition.json`,
+		getCentreById: `${json}/single/centre.json`
 	}
 };

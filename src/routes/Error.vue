@@ -8,5 +8,4 @@ try {
 } catch(e) {
 	$errorDialog.open(e as string);
 }
-
 </script>

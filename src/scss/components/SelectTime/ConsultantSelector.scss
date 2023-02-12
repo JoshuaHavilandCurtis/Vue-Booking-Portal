@@ -1,0 +1,48 @@
+@import "~/bootstrap/scss/bootstrap-grid";
+
+.consultant-selector {
+	&__consultants {}
+
+	&__consultant {
+		display:flex;
+		flex-direction:column;
+		gap:1rem;
+
+		background-color:var(--ow-purple);
+
+		&__image {
+			display:flex;
+			align-items:center;
+
+			position:relative;
+			overflow: hidden;
+			min-height:14rem;
+
+			img {
+				position:absolute;
+				min-width:100%;
+				max-width:100%;
+				min-height:100%;
+				object-fit:cover;
+			}
+		}
+
+		&__subspecialties {
+		}
+
+		&__available-slots {
+			display:grid;
+			gap:1rem;
+
+			grid-template-columns: repeat(2, 1fr);
+
+			@include media-breakpoint-up(md) {
+				grid-template-columns: repeat(4, 1fr);
+			}
+
+			li {
+
+			}
+		}
+	}
+}
