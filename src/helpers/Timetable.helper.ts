@@ -8,7 +8,7 @@ import Request from "@/models/Request.interface";
 import RequestItem from "@/models/RequestItem.interface";
 import $api from "@/services/api.service";
 
-export default class TimetableHelper {
+export default class Timetable {
 
 	/** Handles data to be displayed on the timetable */
 

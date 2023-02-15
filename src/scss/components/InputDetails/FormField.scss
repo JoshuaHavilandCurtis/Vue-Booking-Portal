@@ -15,10 +15,10 @@
 		right:1.75rem;
 		top:50%;
 		transform:translateY(-50%);
-	
-		//annoying zindex hack... fucking zindexes and transitions
+
+		//annoying zindex hack... fucking zindexes and transitions. will run on first load too...
 		@keyframes ZIndexHack { from { z-index: 10 } to { z-index: unset } }
-		&:hover { z-index:10; animation:unset; }
+		&:hover { z-index:10; animation: unset; }
 		animation: ZIndexHack var(--ow-animation-fast);
 	
 		pointer-events:none;
@@ -56,7 +56,6 @@
 	
 			&:hover {
 				+ #{$r2}__list {
-					pointer-events: unset;
 					filter:opacity(1);
 				}
 			}
@@ -72,11 +71,10 @@
 			transform: translateX(-83%);
 			width:max-content;
 			
-			
 			background-color:var(--ow-error);
 			padding:0.5rem 1rem;
 			box-shadow: 3px 3px 7px -4px black;
-	
+			
 			pointer-events:none;
 			filter:opacity(0);
 	

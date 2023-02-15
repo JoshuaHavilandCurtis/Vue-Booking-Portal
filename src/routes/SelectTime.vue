@@ -54,14 +54,6 @@ const slotSelectorHasBeenDetermined = computed(() => (consultants.value !== unde
 
 /* METHODS */
 
-const checkWhichSlotSelectorToUse = async () => {
-    try {
-        await setSelectorData();
-    } catch(e) {
-        throw new Error("Failed to get slot data!");
-    }
-};
-
 const setSelectorData = async () => {
     slots.value = undefined;
     consultants.value = undefined;
@@ -69,9 +61,9 @@ const setSelectorData = async () => {
     const consultantSelector = true;
 
     if (consultantSelector) {
-        consultants.value = await getConsultants();
+        consultants.value = await getConsultants().catch(() => { throw new Error("Failed to get consultant data!") });
     } else {
-        slots.value = await getSlots();
+        slots.value = await getSlots().catch(() => { throw new Error("Failed to get slot data!") });
     }
 };
 
@@ -103,7 +95,7 @@ const getConsultants = async () => {
 (async () => {
     try {
         if (! storedInfoValidity.value.valid) throw storedInfoValidity.value.message;
-        await checkWhichSlotSelectorToUse();
+        await setSelectorData();
     } catch(e) {
         $errorDialog.open(e as string);
     }

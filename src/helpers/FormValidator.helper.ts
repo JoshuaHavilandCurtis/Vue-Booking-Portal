@@ -1,4 +1,4 @@
-export default class FormValidatorHelper {
+export default class FormValidator {
 
 	/** Handles the validation of Form fields */
 

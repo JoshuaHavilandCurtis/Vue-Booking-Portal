@@ -3,23 +3,23 @@
 		<container class="select-date my-3" v-if="storedInfoValidity.valid && timetableDataIsReady">
 
 			<div class="row mb-4">
-				<select-date-header class="header-animation" :requestType="$store.state.request!.type" :requestItem="$store.state.requestItem!"></select-date-header>
+				<SelectDateHeader class="header-animation" :requestType="$store.state.request!.type" :requestItem="$store.state.requestItem!" />
 			</div>
 
 			<div class="row mb-4">
-				<span class="select-date__date-range row justify-content-center">Date range: {{ timetableHelper.startDate.format("YYYY-MM-DD") }} to {{ timetableHelper.endDate.clone().subtract(1, "milliseconds").format("YYYY-MM-DD") }}</span>
+				<span class="select-date__date-range row justify-content-center">Date range: {{ timetable.startDate.format("YYYY-MM-DD") }} to {{ timetable.endDate.clone().subtract(1, "milliseconds").format("YYYY-MM-DD") }}</span>
 			</div>
 		
 			<div class="row">
 				<div class="col-2 d-flex justify-content-center align-items-center">
-					<button ref="renderPreviousWeekButton" @click="renderWeek.previous()" v-if="timetableHelper.startDate.clone().day(1) >= timetableHelper.presentMoment.clone().day(1)">Previous week</button>
+					<button ref="renderPreviousWeekButton" @click="renderWeek.previous()" v-if="timetable.startDate.clone().day(1) >= timetable.presentMoment.clone().day(1)">Previous week</button>
 				</div>
 
 				<div class="col-8 d-flex position-relative">
-					<Timetable :placeholderRows="timetableHelper.times.length" :placeholderColumns="timetableHelper.endDay - timetableHelper.startDay + 1" :data="timetableHelper.data!" />
+					<TimetableComponent :placeholderRows="timetable.times.length" :placeholderColumns="timetable.endDay - timetable.startDay + 1" :data="timetable.data!" />
 					
 					<transition name="element-loader">
-						<LoadingSpinner v-if="! timetableHelper.loaded" />
+						<LoadingSpinner v-if="! timetable.loaded" />
 					</transition>
 				</div>
 
@@ -36,7 +36,7 @@
 
 <script async setup lang="ts">
 import SelectDateHeader from "@/components/SelectDate/SelectDateHeader.vue";
-import Timetable from "@/components/SelectDate/Timetable.vue";
+import TimetableComponent from "@/components/SelectDate/Timetable.vue";
 
 import { ref, computed, reactive } from "vue";
 import { useStore } from "vuex";
@@ -45,7 +45,7 @@ import { useRoute } from "vue-router";
 import $request from "@/services/request.service";
 import $errorDialog from "@/services/errorDialog.service";
 
-import TimetableHelper from "@/helpers/Timetable.helper";
+import Timetable from "@/helpers/Timetable.helper";
 
 
 /* DATA */
@@ -53,7 +53,7 @@ import TimetableHelper from "@/helpers/Timetable.helper";
 const $store = useStore<StoreState>();
 const $route = useRoute();
 
-const timetableHelper = reactive(new TimetableHelper(1, 5, [
+const timetable = reactive(new Timetable(1, 5, [
 	{ hour: 9, minute: 0 },
 	{ hour: 10, minute: 0 },
 	{ hour: 11, minute: 0 },
@@ -63,7 +63,7 @@ const timetableHelper = reactive(new TimetableHelper(1, 5, [
 	{ hour: 15, minute: 0 },
 	{ hour: 16, minute: 0 }
 ]));
-timetableHelper.init();
+timetable.init();
 
 const renderNextWeekButton = ref<HTMLButtonElement>();
 const renderPreviousWeekButton = ref<HTMLButtonElement>();
@@ -76,7 +76,7 @@ const storedInfoValidity = computed(() =>
 	$store.state.requestItem === null ? { valid: false, message: "Request item is not set!" } :
 	{ valid: true });
 
-const timetableDataIsReady = computed(() => timetableHelper.data !== null);
+const timetableDataIsReady = computed(() => timetable.data !== null);
 
 
 /* METHODS */
@@ -91,14 +91,14 @@ const setStoredInfo = async () => {
 
 const renderWeek = {
 	async current() {
-		await timetableHelper.loadCurrentWeek($store.state.request!, $store.state.requestItem!).catch(e => {
+		await timetable.loadCurrentWeek($store.state.request!, $store.state.requestItem!).catch(e => {
 			$errorDialog.open(e as string);
 			throw e;
 		});
 	},
 	async next() {
 		renderNextWeekButton.value!.disabled = true;
-		await timetableHelper.loadNextWeek($store.state.request!, $store.state.requestItem!).catch(e => {
+		await timetable.loadNextWeek($store.state.request!, $store.state.requestItem!).catch(e => {
 			$errorDialog.open(e as string);
 			throw e;
 		});
@@ -106,7 +106,7 @@ const renderWeek = {
 	},
 	async previous() {
 		renderPreviousWeekButton.value!.disabled = true;
-		await timetableHelper.loadPreviousWeek($store.state.request!, $store.state.requestItem!).catch(e => {
+		await timetable.loadPreviousWeek($store.state.request!, $store.state.requestItem!).catch(e => {
 			$errorDialog.open(e as string);
 			throw e;
 		});
