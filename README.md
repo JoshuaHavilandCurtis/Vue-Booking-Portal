@@ -1,6 +1,6 @@
-# OneWelbeck booking portal
+# Booking portal
 
-This is the booking portal that is to be used on the main OneWelbeck website. It will allows users to quickly and easily book time slots with consultants!
+The default copyright laws apply, meaning that you retain all rights to your source code and no one may reproduce, distribute, or create derivative works from your work.
 
 ## Recommended IDE Setup
 
