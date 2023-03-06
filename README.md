@@ -1,6 +1,6 @@
 # Booking portal
 
-The default copyright laws apply, meaning that you retain all rights to your source code and no one may reproduce, distribute, or create derivative works from your work.
+Default copyright laws apply, https://joshuacurtis.co.uk retain all rights to your source code and no one may reproduce, distribute, or create derivative works from your work.
 
 ## Recommended IDE Setup
 
