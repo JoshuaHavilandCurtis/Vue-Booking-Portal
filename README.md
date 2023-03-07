@@ -1,4 +1,4 @@
-# Booking portal
+# Vue3 Booking portal (Composition API)
 
 MIT License
 
